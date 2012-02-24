@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Expr"
+description="This module adds expr support for expression evaluation."

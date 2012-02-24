@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Voice stress detection"
+description="This module attemps to detect voice stress on an audio channel."

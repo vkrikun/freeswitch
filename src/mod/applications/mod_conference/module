@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Conference"
+description="This module provides multi-party conferencing."

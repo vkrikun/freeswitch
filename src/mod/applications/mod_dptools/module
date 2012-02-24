@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Dialplan tools"
+description="This module implements basic dialplan tools."

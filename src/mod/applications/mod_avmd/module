@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Advanced voicemail detection"
+description="This module attempts to determine when a voicemail system has answered the call."

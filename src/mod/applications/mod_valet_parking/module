@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Valet parking"
+description="This module implements the valet call parking strategy."

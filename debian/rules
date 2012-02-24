@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+#export DH_VERBOSE=1
+
+override_dh_auto_configure:
+	./configure --enable-portable-binary --disable-dependency-tracking \
+		--host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
+		--with-gnu-ld --with-python --with-erlang --with-openssl \
+		--enable-core-odbc-support \
+		--prefix=/usr --localstatedir=/var \
+		--with-modinstdir=/usr/lib/freeswitch/mod \
+		--with-rundir=/var/run \
+		--with-dbdir=/var/lib/freeswitch/db \
+		--with-htdocsdir=/usr/share/freeswitch/htdocs \
+		--with-soundsdir=/usr/share/freeswitch/sounds \
+		--with-grammardir=/usr/share/freeswitch/grammar \
+		--with-scriptdir=/usr/share/freeswitch/scripts \
+		--with-recordingsdir=/var/lib/freeswitch/recordings
+
+%:
+	dh $@ 

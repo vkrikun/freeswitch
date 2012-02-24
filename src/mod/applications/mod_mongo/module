@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="MongoDB"
+description="This module provides an interface to MongoDB."

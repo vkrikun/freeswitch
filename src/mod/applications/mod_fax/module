@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Fax"
+description="This module adds fax support provided by Steve Underwood's SpanDSP."

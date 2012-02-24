@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Astract SMS"
+description="This module provides an abstract facility for interfacing with SMS systems."

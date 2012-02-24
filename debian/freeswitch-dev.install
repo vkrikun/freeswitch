@@ -1,0 +1,4 @@
+include /usr/include
+mod/*.la /usr/lib/
+lib/*.{a,la}
+lib/pkgconfig

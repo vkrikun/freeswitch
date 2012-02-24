@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="RSS browser"
+description="This module provides an RSS browser."

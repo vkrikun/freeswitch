@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="FSV"
+description="This module provides dialplan applications for recording and playing FSV videos."

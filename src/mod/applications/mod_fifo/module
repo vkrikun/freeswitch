@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="FIFO"
+description="This module adds a first-in first-out queue system."

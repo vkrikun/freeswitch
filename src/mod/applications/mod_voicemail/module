@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Voicemail"
+description="This module provides a voicemail system."

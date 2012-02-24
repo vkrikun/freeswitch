@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Framework demo module"
+description="This module demonstrates how to build an add-on module."

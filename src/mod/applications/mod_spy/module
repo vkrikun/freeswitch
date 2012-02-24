@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="UserSpy"
+description="This module adds the ability to monitor the audio of a channel."

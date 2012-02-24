@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="MP4 video support"
+description="This module adds support for MP4 video playback."

@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="HT-TAPI Hypertext Telephony API"
+description="This module provides an API for controlling the switch by responding to HTTP requests."

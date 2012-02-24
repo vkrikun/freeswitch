@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Load distributor"
+description="This module implements a mechanism for performing load balancing."

@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="SpanDSP"
+description="This module implements spandsp fax, dsp, and codec functionality."

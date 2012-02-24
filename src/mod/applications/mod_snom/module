@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="SNOM specific features"
+description="This module implements features specific to SNOM phones."

@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+title="Voicemail detection"
+description="This module detects voicemail beeps at any frequency in O(1) time."
