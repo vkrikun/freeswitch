@@ -131,7 +131,7 @@ genmodules_per_mod () {
 }
 
 print_edit_warning > ../modules.conf
-(cat control.core; print_edit_warning; print_core_control;
+(cat control.tmpl; print_edit_warning; print_core_control;
   echo "### modules"; echo) > control
 map_modules \
   "gencontrol_per_cat genmodules_per_cat" \
