@@ -18,4 +18,5 @@ override_dh_auto_configure:
 		--with-recordingsdir=/var/lib/freeswitch/recordings
 
 %:
-	dh $@ 
+	dh $@
+
