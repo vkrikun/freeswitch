@@ -104,7 +104,7 @@ EOF
 }
 
 print_edit_warning () {
-  echo "#### Do not edit!  This file is auto-generated from gen.sh."; echo
+  echo "#### Do not edit!  This file is auto-generated from debian/bootstrap.sh."; echo
 }
 
 gencontrol_per_mod () {
