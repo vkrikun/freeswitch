@@ -1,0 +1,4 @@
+# gitignore
+/control
+/freeswitch-autotools.install
+/freeswitch-mod-*.install
