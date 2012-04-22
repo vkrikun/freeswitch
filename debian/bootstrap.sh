@@ -74,7 +74,7 @@ print_core_control () {
 cat <<EOF
 Package: freeswitch
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}
+Depends: \${shlibs:Depends}, \${perl:Depends}, \${misc:Depends}
 Recommends:
 Suggests:
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
@@ -84,7 +84,7 @@ Description: Cross-Platform Scalable Multi-Protocol Soft Switch
 
 Package: freeswitch-meta-default
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch (= \${binary:Version}),
+Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
  freeswitch-mod-commands (= \${binary:Version}),
  freeswitch-mod-conference (= \${binary:Version}),
  freeswitch-mod-db (= \${binary:Version}),
@@ -121,7 +121,7 @@ Description: Cross-Platform Scalable Multi-Protocol Soft Switch
 
 Package: freeswitch-meta-codecs
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch (= \${binary:Version}),
+Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
  freeswitch-mod-amr (= \${binary:Version}),
  freeswitch-mod-amrwb (= \${binary:Version}),
  freeswitch-mod-bv (= \${binary:Version}),
@@ -154,7 +154,7 @@ Description: debugging symbols for FreeSWITCH
 Package: freeswitch-dev
 Section: libdevel
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch
+Depends: \${misc:Depends}, freeswitch
 Description: development libraries and header files for FreeSWITCH
  ${fs_description}
  .
@@ -171,7 +171,7 @@ Description: documentation for FreeSWITCH
 
 Package: freeswitch-sounds-music
 Architecture: all
-Depends: \${shlibs:Depends}, \${misc:Depends}
+Depends: \${misc:Depends}
 Description: Music on hold audio for FreeSWITCH
  ${fs_description}
  .
@@ -179,7 +179,7 @@ Description: Music on hold audio for FreeSWITCH
 
 Package: freeswitch-sounds-en-us
 Architecture: all
-Depends: \${shlibs:Depends}, \${misc:Depends},
+Depends: \${misc:Depends},
  freeswitch-sounds-en-us-callie (= \${binary:Version})
 Description: US English sounds for FreeSWITCH
  ${fs_description}
@@ -188,7 +188,7 @@ Description: US English sounds for FreeSWITCH
 
 Package: freeswitch-sounds-en-us-callie
 Architecture: all
-Depends: \${shlibs:Depends}, \${misc:Depends}
+Depends: \${misc:Depends}
 Description: US English sounds for FreeSWITCH
  ${fs_description}
  .
