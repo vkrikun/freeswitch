@@ -1,5 +1,3 @@
 /usr/bin
 /usr/lib/libfreeswitch.so*
-/usr/share/grammar
-/usr/share/htdocs
-/usr/share/scripts
+/usr/share/freeswitch/scripts

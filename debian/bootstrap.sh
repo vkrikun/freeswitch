@@ -167,6 +167,16 @@ Description: documentation for FreeSWITCH
  .
  This package contains Doxygen-produce documentation for FreeSWITCH.
 
+## misc
+
+Package: freeswitch-htdocs-slim
+Architecture: all
+Depends: \${misc:Depends}
+Description: FreeSWITCH htdocs slim player
+ ${fs_description}
+ .
+ This package contains the slim SWF player for FreeSWITCH.
+
 ## sounds
 
 Package: freeswitch-sounds-music
