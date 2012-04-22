@@ -2,21 +2,68 @@
 
 mod_dir="../src/mod/"
 fs_description="FreeSWITCH is a scalable open source cross-platform telephony platform designed to route and interconnect popular communication protocols using audio, video, text or any other form of media."
+avoid_mods=(
+  applications/mod_fax
+  applications/mod_ladspa
+  applications/mod_mp4
+  applications/mod_osp
+  applications/mod_rad_auth
+  applications/mod_skel
+  asr_tts/mod_cepstral
+  codecs/mod_com_g729
+  codecs/mod_sangoma_codec
+  codecs/mod_skel_codec
+  endpoints/mod_gsmopen
+  endpoints/mod_h323
+  endpoints/mod_khomp
+  endpoints/mod_opal
+  endpoints/mod_reference
+  endpoints/mod_unicall
+  event_handlers/mod_snmp
+  formats/mod_vlc
+  languages/mod_java
+  languages/mod_managed
+  sdk/autotools
+)
+
+avoid_mod_filter () {
+  for x in "${avoid_mods[@]}"; do
+    [ "$1" = "$x" ] && return 1
+  done
+  return 0
+}
+
+modconf_filter () {
+  while read line; do
+    [ "$1" = "$line" ] && return 0
+  done < modules.conf
+  return 1
+}
+
+mod_filter () {
+  if test -f modules.conf; then
+    modconf_filter $@
+  else
+    avoid_mod_filter $@
+  fi
+}
 
 map_modules () {
-  local percatfns="$1" permodfns="$2"
+  local filterfn="$1" percatfns="$2" permodfns="$3"
   for x in $mod_dir/*; do
     if test -d $x; then
       local category=${x##*/}
       for f in $percatfns; do $f "$category" "$x"; done
       for y in $x/*; do
         local mod=${y##*/} title="" description=""
-        [ -f ${y}/module ] && . ${y}/module
-        [ -n "$title" ] || title="$mod"
-        [ -n "$description" ] || description="Adds ${mod}."
-        for f in $permodfns; do
-          $f "$category" "$x" "$mod" "$y" "$title" "$description"
-        done
+        if $filterfn $category/$mod; then
+          [ -f ${y}/module ] && . ${y}/module
+          [ -n "$title" ] || title="$mod"
+          [ -n "$description" ] || description="Adds ${mod}."
+          for f in $permodfns; do
+            $f "$category" "$x" "$mod" "$y" "$title" "$description"
+          done
+        fi
       done
     fi
   done
@@ -133,7 +180,7 @@ genmodules_per_mod () {
 print_edit_warning > ../modules.conf
 (cat control.tmpl; print_edit_warning; print_core_control;
   echo "### modules"; echo) > control
-map_modules \
+map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
 
