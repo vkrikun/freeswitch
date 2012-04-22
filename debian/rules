@@ -13,8 +13,11 @@ override_dh_auto_clean:
 override_dh_auto_test:
 	# nothing
 
-override_dh_auto_configure:
+.tag-bootstrap:
 	./bootstrap.sh -j
+	touch .tag-bootstrap
+
+.tag-configure: .tag-bootstrap
 	./configure -C --enable-portable-binary --disable-dependency-tracking \
 		--host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
 		--with-gnu-ld --with-python --with-erlang --with-openssl \
@@ -28,9 +31,15 @@ override_dh_auto_configure:
 		--with-grammardir=/usr/share/freeswitch/grammar \
 		--with-scriptdir=/usr/share/freeswitch/scripts \
 		--with-recordingsdir=/var/lib/freeswitch/recordings
+	touch .tag-configure
 
-override_dh_auto_build:
+override_dh_auto_configure: .tag-configure
+
+.tag-build: .tag-configure
 	make -j
+	touch .tag-build
+
+override_dh_auto_build: .tag-build
 
 override_dh_strip:
 	dh_strip -a -k
