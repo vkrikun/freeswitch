@@ -5,6 +5,8 @@
 CFLAGS="-ggdb3 -O2"
 CXXFLAGS="-ggdb3 -O2"
 
+.PHONY: bintest
+
 override_dh_auto_clean:
 	dh_clean
 
