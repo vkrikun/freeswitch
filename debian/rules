@@ -25,6 +25,9 @@ override_dh_auto_install:
 	dh_auto_install
 	DESTDIR=debian/tmp make cd-sounds-install cd-moh-install
 
+override_dh_installinit:
+	dh_installinit -pfreeswitch-sysvinit --name=freeswitch
+
 %:
 	dh $@
 

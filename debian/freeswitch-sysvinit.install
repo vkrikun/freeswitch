@@ -1,2 +1,0 @@
-debian/freeswitch-sysvinit._init.d /etc/init.d/freeswitch
-debian/freeswitch-sysvinit._default /etc/default/freeswitch
