@@ -75,7 +75,6 @@ cat <<EOF
 Package: freeswitch
 Architecture: any
 Depends: \${shlibs:Depends}, \${misc:Depends}
-Recommends: freeswitch-lang-en
 Suggests:
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  ${fs_description}
