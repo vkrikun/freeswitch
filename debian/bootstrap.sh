@@ -146,8 +146,7 @@ EOF
 
 print_mod_install () {
   cat <<EOF
-${1}.la
-${1}.so*
+/usr/lib/freeswitch/mod/${1}.{la,so}
 EOF
 }
 
