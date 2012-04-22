@@ -10,9 +10,6 @@ CXXFLAGS="-ggdb3 -O2"
 override_dh_auto_clean:
 	dh_clean
 
-override_dh_auto_test:
-	# nothing
-
 .tag-bootstrap:
 	./bootstrap.sh -j
 	touch .tag-bootstrap
@@ -40,6 +37,8 @@ override_dh_auto_configure: .tag-configure
 	touch .tag-build
 
 override_dh_auto_build: .tag-build
+
+override_dh_auto_test:
 
 override_dh_strip:
 	dh_strip -a -k
