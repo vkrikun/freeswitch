@@ -76,7 +76,7 @@ Package: freeswitch
 Architecture: any
 Depends: \${shlibs:Depends}, \${perl:Depends}, \${misc:Depends}
 Recommends:
-Suggests:
+Suggests: freeswitch-dbg
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  ${fs_description}
  .
@@ -221,10 +221,22 @@ print_mod_control () {
 Package: freeswitch-${mod//_/-}
 Architecture: any
 Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch
+Suggests: freeswitch-${mod//_/-}-dbg
 Description: ${title} for FreeSWITCH
  ${fs_description}
  .
  This package contains ${mod} for FreeSWITCH.
+ .
+ ${descr}
+
+Package: freeswitch-${mod//_/-}-dbg
+Architecture: any
+Depends: \${shlibs:Depends}, \${misc:Depends},
+ freeswitch-${mod//_/-} (= \${binary:Version})
+Description: ${title} for FreeSWITCH (debug)
+ ${fs_description}
+ .
+ This package contains debugging symbols for ${mod} for FreeSWITCH.
  .
  ${descr}
 
