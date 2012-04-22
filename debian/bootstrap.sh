@@ -119,7 +119,8 @@ Description: Music on hold audio for FreeSWITCH
 
 Package: freeswitch-sounds-en-us
 Architecture: all
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch-sounds-en-us-callie
+Depends: \${shlibs:Depends}, \${misc:Depends},
+ freeswitch-sounds-en-us-callie (= \${binary:Version})
 Description: US English sounds for FreeSWITCH
  ${fs_description}
  .
