@@ -1,9 +1,16 @@
 # gitignore
 /control
+/files
+/modules.conf
 /freeswitch-autotools.install
 /freeswitch-mod-*.install
 /*.log
+/*.substvars
+/*.debhelper
 /tmp
+/freeswitch/
+/freeswitch-dbg/
 /freeswitch-dev/
+/freeswitch-doc/
 /freeswitch-mod-*/
 /freeswitch-sounds-*/
