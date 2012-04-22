@@ -167,6 +167,14 @@ Description: documentation for FreeSWITCH
  .
  This package contains Doxygen-produce documentation for FreeSWITCH.
 
+Package: freeswitch-sysvinit
+Architecture: all
+Depends: \${misc:Depends}
+Description: FreeSWITCH SysV init script
+ ${fs_description}
+ .
+ This package contains the SysV init script for FreeSWITCH.
+
 ## misc
 
 Package: freeswitch-htdocs-slim
