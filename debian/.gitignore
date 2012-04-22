@@ -2,3 +2,8 @@
 /control
 /freeswitch-autotools.install
 /freeswitch-mod-*.install
+/*.log
+/tmp
+/freeswitch-dev/
+/freeswitch-mod-*/
+/freeswitch-sounds-*/
