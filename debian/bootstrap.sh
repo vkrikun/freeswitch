@@ -103,6 +103,7 @@ Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
  freeswitch-mod-console (= \${binary:Version}),
  freeswitch-mod-say-en (= \${binary:Version})
 Recommends:
+ freeswitch-sysvinit (= \${binary:Version}),
  freeswitch-meta-codecs (= \${binary:Version}),
  freeswitch-sounds-music (= \${binary:Version}),
  freeswitch-sounds-en-us (= \${binary:Version})
