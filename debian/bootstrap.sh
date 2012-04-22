@@ -112,7 +112,7 @@ Suggests:
  freeswitch-mod-directory (= \${binary:Version}),
  freeswitch-mod-enum (= \${binary:Version}),
  freeswitch-mod-spy (= \${binary:Version}),
- freeswitch-mod-valet_parking (= \${binary:Version})
+ freeswitch-mod-valet-parking (= \${binary:Version})
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  ${fs_description}
  .
@@ -127,7 +127,7 @@ Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch (= \${binary:Version})
  freeswitch-mod-bv (= \${binary:Version}),
  freeswitch-mod-celt (= \${binary:Version}),
  freeswitch-mod-codec2 (= \${binary:Version}),
- freeswitch-mod-g723_1 (= \${binary:Version}),
+ freeswitch-mod-g723-1 (= \${binary:Version}),
  freeswitch-mod-g729 (= \${binary:Version}),
  freeswitch-mod-h26x (= \${binary:Version}),
  freeswitch-mod-ilbc (= \${binary:Version}),
