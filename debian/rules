@@ -43,3 +43,6 @@ override_dh_installinit:
 %:
 	dh $@
 
+bintest:
+	dh binary -pfreeswitch -pfreeswitch-sysvinit -pfreeswitch-mod-commands
+
