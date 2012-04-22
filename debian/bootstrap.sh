@@ -109,6 +109,14 @@ Description: documentation for FreeSWITCH
 
 ## sounds
 
+Package: freeswitch-sounds-music
+Architecture: all
+Depends: \${shlibs:Depends}, \${misc:Depends}
+Description: Music on hold audio for FreeSWITCH
+ ${fs_description}
+ .
+ This package contains the default music on hold audio for FreeSWITCH.
+
 Package: freeswitch-sounds-en-us
 Architecture: all
 Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch-sounds-en-us-callie
