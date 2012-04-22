@@ -82,6 +82,66 @@ Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  .
  This package contains the FreeSWITCH core.
 
+Package: freeswitch-meta-default
+Architecture: any
+Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch (= \${binary:Version}),
+ freeswitch-mod-commands (= \${binary:Version}),
+ freeswitch-mod-conference (= \${binary:Version}),
+ freeswitch-mod-db (= \${binary:Version}),
+ freeswitch-mod-dptools (= \${binary:Version}),
+ freeswitch-mod-fifo (= \${binary:Version}),
+ freeswitch-mod-hash (= \${binary:Version}),
+ freeswitch-mod-spandsp (= \${binary:Version}),
+ freeswitch-mod-voicemail (= \${binary:Version}),
+ freeswitch-mod-dialplan-xml (= \${binary:Version}),
+ freeswitch-mod-loopback (= \${binary:Version}),
+ freeswitch-mod-sofia (= \${binary:Version}),
+ freeswitch-mod-local-stream (= \${binary:Version}),
+ freeswitch-mod-native-file (= \${binary:Version}),
+ freeswitch-mod-tone-stream (= \${binary:Version}),
+ freeswitch-mod-lua (= \${binary:Version}),
+ freeswitch-mod-console (= \${binary:Version}),
+ freeswitch-mod-say-en (= \${binary:Version})
+Recommends:
+ freeswitch-meta-codecs (= \${binary:Version}),
+ freeswitch-sounds-music (= \${binary:Version}),
+ freeswitch-sounds-en-us (= \${binary:Version})
+Suggests:
+ freeswitch-mod-cidlookup (= \${binary:Version}),
+ freeswitch-mod-curl (= \${binary:Version}),
+ freeswitch-mod-directory (= \${binary:Version}),
+ freeswitch-mod-enum (= \${binary:Version}),
+ freeswitch-mod-spy (= \${binary:Version}),
+ freeswitch-mod-valet_parking (= \${binary:Version})
+Description: Cross-Platform Scalable Multi-Protocol Soft Switch
+ ${fs_description}
+ .
+ This is a meta package containing a reasonable basic FreeSWITCH
+ install.
+
+Package: freeswitch-meta-codecs
+Architecture: any
+Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch (= \${binary:Version}),
+ freeswitch-mod-amr (= \${binary:Version}),
+ freeswitch-mod-amrwb (= \${binary:Version}),
+ freeswitch-mod-bv (= \${binary:Version}),
+ freeswitch-mod-celt (= \${binary:Version}),
+ freeswitch-mod-codec2 (= \${binary:Version}),
+ freeswitch-mod-g723_1 (= \${binary:Version}),
+ freeswitch-mod-g729 (= \${binary:Version}),
+ freeswitch-mod-h26x (= \${binary:Version}),
+ freeswitch-mod-ilbc (= \${binary:Version}),
+ freeswitch-mod-mp4v (= \${binary:Version}),
+ freeswitch-mod-opus (= \${binary:Version}),
+ freeswitch-mod-silk (= \${binary:Version}),
+ freeswitch-mod-siren (= \${binary:Version}),
+ freeswitch-mod-speex (= \${binary:Version}),
+ freeswitch-mod-theora (= \${binary:Version})
+Description: Cross-Platform Scalable Multi-Protocol Soft Switch
+ ${fs_description}
+ .
+ This is a meta package containing most FreeSWITCH codecs.
+
 Package: freeswitch-dbg
 Section: debug
 Architecture: any
