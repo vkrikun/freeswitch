@@ -23,6 +23,7 @@ avoid_mods=(
   formats/mod_vlc
   languages/mod_java
   languages/mod_managed
+  languages/mod_yaml
   sdk/autotools
 )
 
