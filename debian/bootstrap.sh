@@ -164,8 +164,9 @@ gencontrol_per_cat () {
 }
 
 geninstall_per_mod () {
-  local mod="$3"
-  (print_edit_warning; print_mod_install "$mod") > freeswitch-${mod//_/-}.install
+  local mod="$3" f=freeswitch-${mod//_/-}.install
+  (print_edit_warning; print_mod_install "$mod") > $f
+  test -f $f.tmpl && cat $f.tmpl >> $f
 }
 
 genmodules_per_cat () {
