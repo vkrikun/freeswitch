@@ -14,9 +14,11 @@ case "$1" in
         -c 'FreeSWITCH' \
         freeswitch
     fi
-    mkdir -p /var/{lib,run}/freeswitch
-    chown -R freeswitch:freeswitch /var/{lib,run}/freeswitch
-    chmod -R o-rwx /var/{lib,run}/freeswitch
+    for x in /var/lib/freeswitch /var/run/freeswitch; do
+      mkdir -p $x
+      chown -R freeswitch:freeswitch $x
+      chmod -R o-rwx $x
+    done
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
