@@ -82,6 +82,22 @@ Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  .
  This package contains the FreeSWITCH core.
 
+Package: freeswitch-meta-bare
+Architecture: any
+Depends: \${misc:Depends}, freeswitch (= \${binary:Version})
+Recommends:
+ freeswitch-doc (= \${binary:Version}),
+ freeswitch-htdocs-slim (= \${binary:Version}),
+ freeswitch-mod-commands (= \${binary:Version}),
+ freeswitch-sysvinit (= \${binary:Version}),
+ freeswitch-sounds-music (= \${binary:Version}),
+ freeswitch-sounds-en-us (= \${binary:Version})
+Suggests:
+Description: Cross-Platform Scalable Multi-Protocol Soft Switch
+ ${fs_description}
+ .
+ This is a meta package containing a very bare FreeSWITCH install.
+
 Package: freeswitch-meta-default
 Architecture: any
 Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
