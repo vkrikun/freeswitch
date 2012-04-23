@@ -3,11 +3,11 @@ Source: freeswitch
 Section: comm
 Priority: optional
 Maintainer: Travis Cross <tc@traviscross.com>
-Build-Depends: debhelper (>= 8.0.0), wget, automake (>= 1.9), autoconf, libtool,
- unixodbc-dev, libasound2-dev, libcurl3-openssl-dev|libcurl4-openssl-dev|libcurl4-gnutls-dev,
- libssl-dev, ncurses-dev, libogg-dev, libvorbis-dev, libperl-dev, libgdbm-dev,
- libdb-dev, libgnutls-dev, libtiff4-dev, python-dev, libx11-dev, uuid-dev,
- libc6-dev, doxygen
+Build-Depends: debhelper (>= 8.0.0),
+ build-essential, automake (>= 1.9), autoconf, libtool, wget, doxygen
+ unixodbc-dev,
+ libcurl4-gnutls-dev|libcurl4-openssl-dev|libcurl3-openssl-dev,
+ libgnutls-dev, libssl-dev
 Standards-Version: 3.9.2
 Homepage: http://freeswitch.org/
 Vcs-Git: git://git.freeswitch.org/freeswitch
