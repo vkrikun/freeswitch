@@ -17,7 +17,7 @@ case "$1" in
     for x in /var/lib/freeswitch /var/run/freeswitch; do
       mkdir -p $x
       chown -R freeswitch:freeswitch $x
-      chmod -R o-rwx $x
+      chmod -R o-rwx,g+u $x
     done
     ;;
 
