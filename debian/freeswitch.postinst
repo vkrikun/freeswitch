@@ -11,7 +11,8 @@ case "$1" in
         -d /var/run/freeswitch \
         -s /bin/false \
         -e '' \
-        -c 'FreeSWITCH'
+        -c 'FreeSWITCH' \
+        freeswitch
     fi
     mkdir -p /var/{lib,run}/freeswitch
     chown -R freeswitch:freeswitch /var/{lib,run}/freeswitch
