@@ -23,6 +23,7 @@ override_dh_auto_clean:
 		--sysconfdir=/etc/freeswitch \
 		--with-modinstdir=/usr/lib/freeswitch/mod \
 		--with-rundir=/var/run/freeswitch \
+		--with-logfiledir=/var/log/freeswitch \
 		--with-dbdir=/var/lib/freeswitch/db \
 		--with-htdocsdir=/usr/share/freeswitch/htdocs \
 		--with-soundsdir=/usr/share/freeswitch/sounds \
