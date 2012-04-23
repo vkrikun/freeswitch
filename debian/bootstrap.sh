@@ -221,7 +221,7 @@ print_mod_control () {
   cat <<EOF
 Package: freeswitch-${mod//_/-}
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch
+Depends: \${misc:Depends}, freeswitch
 Suggests: freeswitch-${mod//_/-}-dbg
 Description: ${title} for FreeSWITCH
  ${fs_description}
@@ -232,7 +232,7 @@ Description: ${title} for FreeSWITCH
 
 Package: freeswitch-${mod//_/-}-dbg
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends},
+Depends: \${misc:Depends},
  freeswitch-${mod//_/-} (= \${binary:Version})
 Description: ${title} for FreeSWITCH (debug)
  ${fs_description}
