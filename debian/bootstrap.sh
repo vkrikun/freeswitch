@@ -231,6 +231,7 @@ Description: ${title} for FreeSWITCH
  ${descr}
 
 Package: freeswitch-${mod//_/-}-dbg
+Section: debug
 Architecture: any
 Depends: \${misc:Depends},
  freeswitch-${mod//_/-} (= \${binary:Version})
