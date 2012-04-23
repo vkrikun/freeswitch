@@ -58,5 +58,5 @@ override_dh_installinit:
 binary-quicktest:
 	echo "applications/mod_commands" > debian/modules.conf
 	(cd debian && ./bootstrap.sh)
-	dh binary -pfreeswitch -pfreeswitch-sysvinit -pfreeswitch-mod-commands
+	dh binary -Nfreeswitch-sounds-music -Nfreeswitch-sounds-en-us -Nfreeswitch-sounds-en-us-callie
 
