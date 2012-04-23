@@ -56,5 +56,6 @@ override_dh_installinit:
 	dh $@
 
 binary-quicktest:
+	echo "applications/mod_commands" > debian/modules.conf
 	dh binary -pfreeswitch -pfreeswitch-sysvinit -pfreeswitch-mod-commands
 
