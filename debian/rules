@@ -20,8 +20,9 @@ override_dh_auto_clean:
 		--with-gnu-ld --with-python --with-erlang --with-openssl \
 		--enable-core-odbc-support --enable-zrtp \
 		--prefix=/usr --localstatedir=/var \
+		--sysconfdir=/etc/freeswitch \
 		--with-modinstdir=/usr/lib/freeswitch/mod \
-		--with-rundir=/var/run \
+		--with-rundir=/var/run/freeswitch \
 		--with-dbdir=/var/lib/freeswitch/db \
 		--with-htdocsdir=/usr/share/freeswitch/htdocs \
 		--with-soundsdir=/usr/share/freeswitch/sounds \
