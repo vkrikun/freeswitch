@@ -3,6 +3,19 @@ set -e
 
 case "$1" in
   configure)
+    if ! getent group freeswitch >/dev/null; then
+      groupadd --system freeswitch
+    fi
+    if ! getent passwd freeswitch >/dev/null; then
+      useradd --system -g freeswitch -Gaudio \
+        -d /var/run/freeswitch \
+        -s /bin/false \
+        -e '' \
+        -c 'FreeSWITCH'
+    fi
+    mkdir -p /var/{lib,run}/freeswitch
+    chown -R freeswitch:freeswitch /var/{lib,run}/freeswitch
+    chmod -R o-rwx /var/{lib,run}/freeswitch
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
