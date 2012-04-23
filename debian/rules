@@ -2,8 +2,8 @@
 # -*- makefile -*-
 #export DH_VERBOSE=1
 
-export CFLAGS="-ggdb3 -O2"
-export CXXFLAGS="-ggdb3 -O2"
+export CFLAGS=-ggdb3 -O2
+export CXXFLAGS=-ggdb3 -O2
 
 .PHONY: binary-quicktest
 
