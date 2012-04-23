@@ -10,7 +10,11 @@ case "$1" in
       if getent group freeswitch >/dev/null; then
         groupdel freeswitch
       fi
-      for x in /var/lib/freeswitch /var/run/freeswitch; do
+      for x in \
+        /var/lib/freeswitch \
+        /var/log/freeswitch \
+        /var/run/freeswitch;
+      do
         rm -rf $x
       done
     fi

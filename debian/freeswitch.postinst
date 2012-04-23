@@ -14,7 +14,14 @@ case "$1" in
         -c 'FreeSWITCH' \
         freeswitch
     fi
-    for x in /var/lib/freeswitch /var/run/freeswitch; do
+    for x in \
+      /var/lib/freeswitch \
+      /var/lib/freeswitch/db \
+      /var/lib/freeswitch/recordings \
+      /var/lib/freeswitch/storage \
+      /var/log/freeswitch \
+      /var/run/freeswitch;
+    do
       mkdir -p $x
       chown -R freeswitch:freeswitch $x
       chmod -R o-rwx,g+u $x
