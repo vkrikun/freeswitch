@@ -53,17 +53,15 @@ map_modules () {
   local filterfn="$1" percatfns="$2" permodfns="$3"
   for x in $mod_dir/*; do
     if test -d $x; then
-      local category=${x##*/}
-      for f in $percatfns; do $f "$category" "$x"; done
+      category=${x##*/} category_path=$x
+      for f in $percatfns; do $f; done
       for y in $x/*; do
-        local mod=${y##*/} title="" description=""
-        if $filterfn $category/$mod; then
+        module=${y##*/} module_path=$y title="" description=""
+        if $filterfn $category/$module; then
           [ -f ${y}/module ] && . ${y}/module
-          [ -n "$title" ] || title="$mod"
-          [ -n "$description" ] || description="Adds ${mod}."
-          for f in $permodfns; do
-            $f "$category" "$x" "$mod" "$y" "$title" "$description"
-          done
+          [ -n "$title" ] || title="$module"
+          [ -n "$description" ] || description="Adds ${module}."
+          for f in $permodfns; do $f; done
         fi
       done
     fi
@@ -272,27 +270,25 @@ print_edit_warning () {
 }
 
 gencontrol_per_mod () {
-  local mod="$3" title="$5" descr="$6"
-  print_mod_control "$mod" "$title" "$descr" >> control  
+  print_mod_control "$module" "$title" "$description" >> control  
 }
 
 gencontrol_per_cat () {
-  (echo "## mod/$1"; echo) >> control
+  (echo "## mod/$category"; echo) >> control
 }
 
 geninstall_per_mod () {
-  local mod="$3" f=freeswitch-${mod//_/-}.install
-  (print_edit_warning; print_mod_install "$mod") > $f
+  local f=freeswitch-${module//_/-}.install
+  (print_edit_warning; print_mod_install "$module") > $f
   test -f $f.tmpl && cat $f.tmpl >> $f
 }
 
 genmodules_per_cat () {
-  echo "# $1" >> ../modules.conf
+  echo "# $category" >> ../modules.conf
 }
 
 genmodules_per_mod () {
-  local cat="$1" mod="$3"
-  echo "$cat/$mod" >> ../modules.conf
+  echo "$category/$module" >> ../modules.conf
 }
 
 print_edit_warning > ../modules.conf
