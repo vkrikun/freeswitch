@@ -10,11 +10,11 @@ CXXFLAGS="-ggdb3 -O2"
 override_dh_auto_clean:
 	dh_clean
 
-.tag-bootstrap:
+.stamp-bootstrap:
 	./bootstrap.sh -j
-	touch .tag-bootstrap
+	touch $@
 
-.tag-configure: .tag-bootstrap
+.stamp-configure: .stamp-bootstrap
 	./configure -C --enable-portable-binary --disable-dependency-tracking \
 		--host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
 		--with-gnu-ld --with-python --with-erlang --with-openssl \
@@ -29,15 +29,15 @@ override_dh_auto_clean:
 		--with-grammardir=/usr/share/freeswitch/grammar \
 		--with-scriptdir=/usr/share/freeswitch/scripts \
 		--with-recordingsdir=/var/lib/freeswitch/recordings
-	touch .tag-configure
+	touch $@
 
-override_dh_auto_configure: .tag-configure
+override_dh_auto_configure: .stamp-configure
 
-.tag-build: .tag-configure
+.stamp-build: .stamp-configure
 	make -j
-	touch .tag-build
+	touch $@
 
-override_dh_auto_build: .tag-build
+override_dh_auto_build: .stamp-build
 
 override_dh_auto_test:
 
