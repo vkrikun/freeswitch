@@ -55,6 +55,7 @@ override_dh_installinit:
 
 debian/.stamp-bootstrap:
 	(cd debian && ./bootstrap.sh)
+	touch $@
 
 %: debian/.stamp-bootstrap
 	dh $@
