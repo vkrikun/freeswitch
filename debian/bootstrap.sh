@@ -63,7 +63,9 @@ map_modules () {
           [ -n "$description" ] || description="Adds ${module}."
           for f in $permodfns; do $f; done
         fi
+        unset module module_path title description
       done
+      unset category category_path
     fi
   done
 }
