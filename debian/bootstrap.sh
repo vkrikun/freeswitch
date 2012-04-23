@@ -285,4 +285,5 @@ print_edit_warning > ../modules.conf
 map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
+touch .stamp-bootstrap
 
