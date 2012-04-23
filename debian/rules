@@ -2,21 +2,8 @@
 # -*- makefile -*-
 #export DH_VERBOSE=1
 
-DEFS=
-DEFS+=-DSWITCH_MOD_DIR=/usr/lib/freeswitch/mod
-DEFS+=-DSWITCH_CONF_DIR=/etc/freeswitch
-DEFS+=-DSWITCH_LOG_DIR=/var/log/freeswitch
-DEFS+=-DSWITCH_RUN_DIR=/var/run/freeswitch
-DEFS+=-DSWITCH_RECORDINGS_DIR=/var/lib/freeswitch/recordings
-DEFS+=-DSWITCH_SOUNDS_DIR=/usr/share/freeswitch/sounds
-DEFS+=-DSWITCH_STORAGE_DIR=/var/lib/freeswitch/storage
-DEFS+=-DSWITCH_DB_DIR=/var/lib/freeswitch/db
-DEFS+=-DSWITCH_SCRIPT_DIR=/usr/share/freeswitch/scripts
-DEFS+=-DSWITCH_HTDOCS_DIR=/usr/share/freeswitch/htdocs
-DEFS+=-DSWITCH_GRAMMAR_DIR=/usr/share/freeswitch/grammar
-DEFS+=-DSWITCH_TEMP_DIR=/tmp
-export CFLAGS=-ggdb3 -O2 $(DEFS)
-export CXXFLAGS=-ggdb3 -O2 $(DEFS)
+export CFLAGS=-ggdb3 -O2
+export CXXFLAGS=-ggdb3 -O2
 
 .PHONY: binary-quicktest
 
