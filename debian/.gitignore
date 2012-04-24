@@ -5,6 +5,7 @@
 /modules.conf
 /freeswitch-autotools.install
 /freeswitch-mod-*.install
+/freeswitch-conf-*.install
 /*.log
 /*.substvars
 /*.debhelper
