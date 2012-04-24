@@ -355,11 +355,11 @@ geninstall_per_mod () {
 }
 
 genmodules_per_cat () {
-  echo "# $category" >> ../modules.conf
+  echo "# $category" >> modules_.conf
 }
 
 genmodules_per_mod () {
-  echo "$category/$module" >> ../modules.conf
+  echo "$category/$module" >> modules_.conf
 }
 
 genconf () {
@@ -380,7 +380,7 @@ accumulate_build_depends () {
   fi
 }
 
-print_edit_warning > ../modules.conf
+print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
 > control
 (print_edit_warning; print_source_control; print_core_control) >> control
