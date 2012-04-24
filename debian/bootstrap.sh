@@ -57,15 +57,18 @@ map_modules () {
       for f in $percatfns; do $f; done
       for y in $x/*; do
         module=${y##*/} module_path=$y title="" description=""
-        debian_depends="" debian_recommends="" debian_suggests=""
+        debian_depends=""
+        debian_recommends="" debian_suggests=""
         if $filterfn $category/$module; then
           [ -f ${y}/module ] && . ${y}/module
           [ -n "$title" ] || title="$module"
           [ -n "$description" ] || description="Adds ${module}."
           for f in $permodfns; do $f; done
         fi
-        unset module module_path title description
-        unset debian_depends debian_recommends debian_suggests
+        unset \
+          module module_path title description \
+          debian_depends \
+          debian_recommends debian_suggests
       done
       unset category category_path
     fi
