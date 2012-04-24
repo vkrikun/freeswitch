@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mod_dir="../src/mod"
+conf_dir="../conf"
 fs_description="FreeSWITCH is a scalable open source cross-platform telephony platform designed to route and interconnect popular communication protocols using audio, video, text or any other form of media."
 build_depends=""
 avoid_mods=(
@@ -73,6 +74,16 @@ map_modules () {
       done
       unset category category_path
     fi
+  done
+}
+
+map_confs () {
+  local fs="$1"
+  for x in $conf_dir/*; do
+    test ! -d $x && continue
+    conf=${x##*/} conf_dir=$x
+    for f in $fs; do $f; done
+    unset conf conf_dir
   done
 }
 
@@ -306,6 +317,25 @@ print_mod_install () {
 EOF
 }
 
+print_conf_control () {
+  cat <<EOF
+Package: freeswitch-conf-${conf//_/-}
+Architecture: all
+Depends: \${misc:Depends}
+Description: FreeSWITCH ${conf} configuration
+ ${fs_description}
+ .
+ This package contains the ${conf} configuration for FreeSWITCH.
+
+EOF
+}
+
+print_conf_install () {
+  cat <<EOF
+conf/${conf} /usr/share/freeswitch/conf
+EOF
+}
+
 print_edit_warning () {
   echo "#### Do not edit!  This file is auto-generated from debian/bootstrap.sh."; echo
 }
@@ -332,6 +362,13 @@ genmodules_per_mod () {
   echo "$category/$module" >> ../modules.conf
 }
 
+genconf () {
+  print_conf_control >> control
+  local f=freeswitch-conf-${conf//_/-}.install
+  (print_edit_warning; print_conf_install) > $f
+  test -f $f.tmpl && cat $f.tmpl >> $f
+}
+
 accumulate_build_depends () {
   build_depends="."
   if [ -n "$debian_build_depends" ]; then
@@ -345,8 +382,11 @@ accumulate_build_depends () {
 
 print_edit_warning > ../modules.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
-(print_edit_warning; print_source_control; print_core_control;
-  echo "### modules"; echo) > control
+> control
+(print_edit_warning; print_source_control; print_core_control) >> control
+(echo "### conf"; echo) >> control
+map_confs 'genconf'
+(echo "### modules"; echo) >> control
 map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
