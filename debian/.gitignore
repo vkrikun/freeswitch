@@ -3,6 +3,7 @@
 /control
 /files
 /modules.conf
+/modules_.conf
 /freeswitch-autotools.install
 /freeswitch-mod-*.install
 /freeswitch-conf-*.install
