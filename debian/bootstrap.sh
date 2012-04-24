@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mod_dir="../src/mod/"
+mod_dir="../src/mod"
 fs_description="FreeSWITCH is a scalable open source cross-platform telephony platform designed to route and interconnect popular communication protocols using audio, video, text or any other form of media."
 build_depends=""
 avoid_mods=(
