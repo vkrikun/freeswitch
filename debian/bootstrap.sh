@@ -2,6 +2,7 @@
 
 mod_dir="../src/mod/"
 fs_description="FreeSWITCH is a scalable open source cross-platform telephony platform designed to route and interconnect popular communication protocols using audio, video, text or any other form of media."
+build_depends=""
 avoid_mods=(
   applications/mod_fax
   applications/mod_ladspa
@@ -57,7 +58,7 @@ map_modules () {
       for f in $percatfns; do $f; done
       for y in $x/*; do
         module=${y##*/} module_path=$y title="" description=""
-        debian_depends=""
+        debian_build_depends="" debian_depends=""
         debian_recommends="" debian_suggests=""
         if $filterfn $category/$module; then
           [ -f ${y}/module ] && . ${y}/module
@@ -67,12 +68,44 @@ map_modules () {
         fi
         unset \
           module module_path title description \
-          debian_depends \
+          debian_build_depends debian_depends \
           debian_recommends debian_suggests
       done
       unset category category_path
     fi
   done
+}
+
+print_source_control () {
+cat <<EOF
+Source: freeswitch
+Section: comm
+Priority: optional
+Maintainer: Travis Cross <tc@traviscross.com>
+Build-Depends:
+# for debian
+ debhelper (>= 8.0.0),
+# bootstrapping
+ automake (>= 1.9), autoconf, libtool,
+# core build
+ build-essential, wget, pkg-config,
+# configure options
+ libssl-dev, unixodbc-dev,
+ libncurses5-dev, libjpeg8-dev,
+ python-dev, erlang-dev,
+# documentation
+ doxygen,
+# for APR (not essential for build)
+ uuid-dev, libexpat1-dev, libgdbm-dev, libdb-dev,
+# used by curl, freetdm, pcre, tiff
+ zlib1g-dev,
+# module build-depends
+ ${build_depends}
+Standards-Version: 3.9.2
+Homepage: http://freeswitch.org/
+Vcs-Git: git://git.freeswitch.org/freeswitch
+Vcs-Browser: http://git.freeswitch.org/git/freeswitch/
+EOF
 }
 
 print_core_control () {
@@ -298,8 +331,20 @@ genmodules_per_mod () {
   echo "$category/$module" >> ../modules.conf
 }
 
+accumulate_build_depends () {
+  build_depends=""
+  if [ -n "$debian_build_depends" ]; then
+    if [ -n "$build_depends" ]; then
+      build_depends="${build_depends}, ${debian_build_depends}"
+    else
+      build_depends="${debian_build_depends}"
+    fi
+  fi
+}
+
 print_edit_warning > ../modules.conf
-(cat control.tmpl; print_edit_warning; print_core_control;
+map_modules 'mod_filter' '' 'accumulate_build_depends'
+(print_edit_warning; print_source_control; print_core_control;
   echo "### modules"; echo) > control
 map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
