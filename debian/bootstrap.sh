@@ -262,6 +262,15 @@ Description: Music on hold audio for FreeSWITCH
  .
  This package contains the default music on hold audio for FreeSWITCH.
 
+Package: freeswitch-sounds-en
+Architecture: all
+Depends: \${misc:Depends},
+ freeswitch-sounds-en-us (= \${binary:Version})
+Description: English sounds for FreeSWITCH
+ ${fs_description}
+ .
+ This package contains the English sounds for FreeSWITCH.
+
 Package: freeswitch-sounds-en-us
 Architecture: all
 Depends: \${misc:Depends},
@@ -269,11 +278,16 @@ Depends: \${misc:Depends},
 Description: US English sounds for FreeSWITCH
  ${fs_description}
  .
- This package contains the English sounds for FreeSWITCH.
+ This package contains the US/English sounds for FreeSWITCH.
 
 Package: freeswitch-sounds-en-us-callie
 Architecture: all
-Depends: \${misc:Depends}
+Depends: \${misc:Depends},
+ freeswitch-sounds-en-us-callie-8k (= \${binary:Version})
+Recommends:
+ freeswitch-sounds-en-us-callie-16k (= \${binary:Version}),
+ freeswitch-sounds-en-us-callie-32k (= \${binary:Version}),
+ freeswitch-sounds-en-us-callie-48k (= \${binary:Version})
 Description: US English sounds for FreeSWITCH
  ${fs_description}
  .
@@ -336,6 +350,46 @@ conf/${conf} /usr/share/freeswitch/conf
 EOF
 }
 
+print_music_control () {
+  cat <<EOF
+Package: freeswitch-sounds-music-${rate_k}
+Architecture: all
+Depends: \${misc:Depends}
+Description: Music on hold audio for FreeSWITCH
+ ${fs_description}
+ .
+ This package contains the default music on hold audio for FreeSWITCH
+ at a sampling rate of ${rate}Hz.
+
+EOF
+}
+
+print_music_install () {
+  cat <<EOF
+/usr/share/freeswitch/sounds/music/${rate}
+EOF
+}
+
+print_sound_control () {
+  cat <<EOF
+Package: freeswitch-sounds-${sound//\//-}-${rate_k}
+Architecture: all
+Depends: \${misc:Depends}
+Description: ${sound} sounds for FreeSWITCH
+ ${fs_description}
+ .
+ This package contains the ${sound} sounds for FreeSWITCH at a
+ sampling rate of ${rate}Hz.
+
+EOF
+}
+
+print_sound_install () {
+  cat <<EOF
+/usr/share/freeswitch/sounds/${sound_path}/*/${rate}
+EOF
+}
+
 print_edit_warning () {
   echo "#### Do not edit!  This file is auto-generated from debian/bootstrap.sh."; echo
 }
@@ -369,6 +423,27 @@ genconf () {
   test -f $f.tmpl && cat $f.tmpl >> $f
 }
 
+genmusic () {
+  rate="$1" rate_k="${rate%%000}k"
+  print_music_control >> control
+  local f=freeswitch-sounds-music-${rate_k}.install
+  (print_edit_warning; print_music_install) > $f
+  test -f $f.tmpl && cat $f.tmpl >> $f
+  unset rate rate_k
+}
+
+gensound () {
+  rate="$1"  rate_k="${rate%%000}k" sound_path="$2" sound="${2,,}"
+  language=$(echo $sound | cut -d/ -f1)
+  country=$(echo $sound | cut -d/ -f2)
+  speaker=$(echo $sound | cut -d/ -f3)
+  print_sound_control >> control
+  local f=freeswitch-sounds-${sound//\//-}-${rate_k}.install
+  (print_edit_warning; print_sound_install) > $f
+  test -f $f.tmpl && cat $f.tmpl >> $f
+  unset rate rate_k sound sound_path language country speaker
+}
+
 accumulate_build_depends () {
   build_depends="."
   if [ -n "$debian_build_depends" ]; then
@@ -384,6 +459,12 @@ print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
 > control
 (print_edit_warning; print_source_control; print_core_control) >> control
+for r in 8000 16000 32000 48000; do genmusic $r; done
+for x in 'en/us/callie'; do
+  for r in 8000 16000 32000 48000; do
+    gensound $r $x
+  done
+done
 (echo "### conf"; echo) >> control
 map_confs 'genconf'
 (echo "### modules"; echo) >> control

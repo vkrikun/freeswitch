@@ -7,6 +7,7 @@
 /freeswitch-autotools.install
 /freeswitch-mod-*.install
 /freeswitch-conf-*.install
+/freeswitch-sounds-*.install
 /*.log
 /*.substvars
 /*.debhelper
