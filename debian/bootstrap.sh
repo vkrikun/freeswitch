@@ -332,9 +332,9 @@ genmodules_per_mod () {
 }
 
 accumulate_build_depends () {
-  build_depends=""
+  build_depends="."
   if [ -n "$debian_build_depends" ]; then
-    if [ -n "$build_depends" ]; then
+    if [ ! "$build_depends" = "." ]; then
       build_depends="${build_depends}, ${debian_build_depends}"
     else
       build_depends="${debian_build_depends}"
