@@ -233,30 +233,29 @@ EOF
 }
 
 print_mod_control () {
-  local mod="$1" title="$2" descr="$3"
   cat <<EOF
-Package: freeswitch-${mod//_/-}
+Package: freeswitch-${module//_/-}
 Architecture: any
 Depends: \${misc:Depends}, freeswitch
-Suggests: freeswitch-${mod//_/-}-dbg
+Suggests: freeswitch-${module//_/-}-dbg
 Description: ${title} for FreeSWITCH
  ${fs_description}
  .
- This package contains ${mod} for FreeSWITCH.
+ This package contains ${module} for FreeSWITCH.
  .
- ${descr}
+ ${description}
 
-Package: freeswitch-${mod//_/-}-dbg
+Package: freeswitch-${module//_/-}-dbg
 Section: debug
 Architecture: any
 Depends: \${misc:Depends},
- freeswitch-${mod//_/-} (= \${binary:Version})
+ freeswitch-${module//_/-} (= \${binary:Version})
 Description: ${title} for FreeSWITCH (debug)
  ${fs_description}
  .
- This package contains debugging symbols for ${mod} for FreeSWITCH.
+ This package contains debugging symbols for ${module} for FreeSWITCH.
  .
- ${descr}
+ ${description}
 
 EOF
 }
