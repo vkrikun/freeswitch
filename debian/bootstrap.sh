@@ -57,6 +57,7 @@ map_modules () {
       for f in $percatfns; do $f; done
       for y in $x/*; do
         module=${y##*/} module_path=$y title="" description=""
+        debian_depends="" debian_recommends="" debian_suggests=""
         if $filterfn $category/$module; then
           [ -f ${y}/module ] && . ${y}/module
           [ -n "$title" ] || title="$module"
@@ -64,6 +65,7 @@ map_modules () {
           for f in $permodfns; do $f; done
         fi
         unset module module_path title description
+        unset debian_depends debian_recommends debian_suggests
       done
       unset category category_path
     fi
@@ -236,8 +238,9 @@ print_mod_control () {
   cat <<EOF
 Package: freeswitch-${module//_/-}
 Architecture: any
-Depends: \${misc:Depends}, freeswitch
-Suggests: freeswitch-${module//_/-}-dbg
+Depends: \${misc:Depends}, freeswitch, ${debian_depends}
+Recommends: ${debian_recommends}
+Suggests: freeswitch-${module//_/-}-dbg, ${debian_suggests}
 Description: ${title} for FreeSWITCH
  ${fs_description}
  .
