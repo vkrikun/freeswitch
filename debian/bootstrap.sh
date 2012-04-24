@@ -105,6 +105,7 @@ Standards-Version: 3.9.2
 Homepage: http://freeswitch.org/
 Vcs-Git: git://git.freeswitch.org/freeswitch
 Vcs-Browser: http://git.freeswitch.org/git/freeswitch/
+
 EOF
 }
 
