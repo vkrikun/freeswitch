@@ -1,4 +1,6 @@
 #!/bin/bash
+##### -*- mode:shell-script; indent-tabs-mode:nil; sh-basic-offset:2 -*-
+##### Author: Travis Cross <tc@traviscross.com>
 
 create_dbg_pkgs () {
   for x in debian/*; do

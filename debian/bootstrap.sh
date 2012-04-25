@@ -1,4 +1,6 @@
 #!/bin/bash
+##### -*- mode:shell-script; indent-tabs-mode:nil; sh-basic-offset:2 -*-
+##### Author: Travis Cross <tc@traviscross.com>
 
 mod_dir="../src/mod"
 conf_dir="../conf"
