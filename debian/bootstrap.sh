@@ -139,8 +139,7 @@ Recommends:
  freeswitch-doc (= \${binary:Version}),
  freeswitch-htdocs-slim (= \${binary:Version}),
  freeswitch-mod-commands (= \${binary:Version}),
- freeswitch-sysvinit (= \${binary:Version}),
- freeswitch-systemd (= \${binary:Version}),
+ freeswitch-init (= \${binary:Version}),
  freeswitch-sounds-music (= \${binary:Version}),
  freeswitch-sounds-en-us (= \${binary:Version})
 Suggests:
@@ -170,8 +169,7 @@ Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
  freeswitch-mod-console (= \${binary:Version}),
  freeswitch-mod-say-en (= \${binary:Version})
 Recommends:
- freeswitch-sysvinit (= \${binary:Version}),
- freeswitch-systemd (= \${binary:Version}),
+ freeswitch-init (= \${binary:Version}),
  freeswitch-meta-codecs (= \${binary:Version}),
  freeswitch-sounds-music (= \${binary:Version}),
  freeswitch-sounds-en-us (= \${binary:Version})
