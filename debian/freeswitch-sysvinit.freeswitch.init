@@ -92,6 +92,7 @@ case "$1" in
     log_daemon_msg "Reloading $DESC" "$NAME"
     do_reload
     log_end_msg $?
+    ;;
   restart)
     log_daemon_msg "Restarting $DESC" "$NAME"
     do_stop
