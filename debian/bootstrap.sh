@@ -280,8 +280,8 @@ Architecture: all
 Depends: \${misc:Depends}
  freeswitch-sounds-music-8k (= \${binary:Version})
 Recommends:
-  freeswitch-sounds-music-16k (= \${binary:Version})
-  freeswitch-sounds-music-32k (= \${binary:Version})
+  freeswitch-sounds-music-16k (= \${binary:Version}),
+  freeswitch-sounds-music-32k (= \${binary:Version}),
   freeswitch-sounds-music-48k (= \${binary:Version})
 Description: Music on hold audio for FreeSWITCH
  ${fs_description}
