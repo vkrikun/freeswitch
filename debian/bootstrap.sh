@@ -236,7 +236,7 @@ Description: documentation for FreeSWITCH
 
 Package: freeswitch-sysvinit
 Architecture: all
-Depends: \${misc:Depends}
+Depends: \${misc:Depends}, lsb-base (>= 3.0-6)
 Description: FreeSWITCH SysV init script
  ${fs_description}
  .
