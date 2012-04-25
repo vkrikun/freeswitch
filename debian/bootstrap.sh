@@ -236,6 +236,17 @@ Description: documentation for FreeSWITCH
  .
  This package contains Doxygen-produce documentation for FreeSWITCH.
 
+Package: freeswitch-init
+Architecture: all
+Depends: \${misc:Depends},
+ freeswitch-sysvinit (= \${binary:Version}),
+ freeswitch-systemd (= \${binary:Version})
+Description: FreeSWITCH startup configuration
+ ${fs_description}
+ .
+ This package contains the system startup configuration for
+ FreeSWITCH.
+
 Package: freeswitch-sysvinit
 Architecture: all
 Depends: \${misc:Depends}, lsb-base (>= 3.0-6)
