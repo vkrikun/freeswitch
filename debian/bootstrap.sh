@@ -242,6 +242,14 @@ Description: FreeSWITCH SysV init script
  .
  This package contains the SysV init script for FreeSWITCH.
 
+Package: freeswitch-systemd
+Architecture: all
+Depends: \${misc:Depends}
+Description: FreeSWITCH systemd configuration
+ ${fs_description}
+ .
+ This package contains the systemd configuration for FreeSWITCH.
+
 ## misc
 
 Package: freeswitch-htdocs-slim
