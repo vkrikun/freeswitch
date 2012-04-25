@@ -433,7 +433,7 @@ geninstall_per_mod () {
 }
 
 genmodules_per_cat () {
-  echo "# $category" >> modules_.conf
+  echo "## $category" >> modules_.conf
 }
 
 genmodules_per_mod () {
