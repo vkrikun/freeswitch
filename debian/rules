@@ -4,6 +4,7 @@
 
 export CFLAGS=-ggdb3 -O2
 export CXXFLAGS=-ggdb3 -O2
+FS_INSTALL_SOUNDS?=true
 
 .PHONY: binary-quicktest
 
@@ -49,7 +50,7 @@ override_dh_strip:
 
 override_dh_auto_install:
 	dh_auto_install
-	DESTDIR=debian/tmp make cd-sounds-install cd-moh-install
+	-$(FS_INSTALL_SOUNDS) && DESTDIR=debian/tmp make cd-sounds-install cd-moh-install
 	mkdir -p debian/tmp/lib/systemd/system
 	install -m0644 debian/freeswitch-systemd.freeswitch.service debian/tmp/lib/systemd/system/freeswitch.service
 
@@ -72,7 +73,7 @@ binary-basetest:
 binary-quicktest:
 	echo "applications/mod_commands" > debian/modules.conf
 	(cd debian && ./bootstrap.sh)
-	dh binary \
+	env FS_INSTALL_SOUNDS=false dh binary \
 		-Nfreeswitch-sounds-music-8k \
 		-Nfreeswitch-sounds-music-16k \
 		-Nfreeswitch-sounds-music-32k \
