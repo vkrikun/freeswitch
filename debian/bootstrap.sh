@@ -5,7 +5,7 @@
 mod_dir="../src/mod"
 conf_dir="../conf"
 fs_description="FreeSWITCH is a scalable open source cross-platform telephony platform designed to route and interconnect popular communication protocols using audio, video, text or any other form of media."
-build_depends=""
+build_depends="."
 avoid_mods=(
   applications/mod_fax
   applications/mod_ladspa
@@ -470,7 +470,6 @@ gensound () {
 }
 
 accumulate_build_depends () {
-  build_depends="."
   if [ -n "$debian_build_depends" ]; then
     if [ ! "$build_depends" = "." ]; then
       build_depends="${build_depends}, ${debian_build_depends}"
