@@ -109,8 +109,8 @@ Build-Depends:
  doxygen,
 # for APR (not essential for build)
  uuid-dev, libexpat1-dev, libgdbm-dev, libdb-dev,
-# used by curl, freetdm, pcre, tiff
- zlib1g-dev,
+# used by many modules
+ bison, zlib1g-dev,
 # module build-depends
  ${build_depends}
 Standards-Version: 3.9.2
