@@ -1,3 +1,5 @@
 # -*- mode: sh; mode: visual-line -*-
 title="MongoDB"
 description="This module provides an interface to MongoDB."
+debian_build_depends="scons libboost-dev"
+debian_depends="libicu44"
