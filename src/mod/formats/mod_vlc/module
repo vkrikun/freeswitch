@@ -1,0 +1,5 @@
+# -*- mode: sh; mode: visual-line -*-
+title="VLC streaming"
+description="This module provides VLC streaming."
+debian_build_depends="libvlc-dev"
+debian_depends="libvlc5"
