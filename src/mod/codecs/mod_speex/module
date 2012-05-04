@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+debian_build_depends="libogg-dev"
+debian_depends="libogg0"
