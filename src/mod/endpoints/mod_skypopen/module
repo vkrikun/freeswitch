@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+debian_build_depends="libx11-dev"
+debian_depends="libpthread-stubs0"
