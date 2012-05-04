@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+debian_build_depends="libperl-dev"
+debian_depends="libperl5.10"
