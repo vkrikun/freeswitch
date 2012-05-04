@@ -480,6 +480,25 @@ accumulate_build_depends () {
   fi
 }
 
+genmodctl_new_mod() {
+  grep -e "^Module: ${category}/${module}$" control-modules >/dev/null && return 0
+  cat >> control-modules <<EOF
+Module: $category/$module
+Description: $title
+ $description
+EOF
+  echo >> control-modules
+}
+
+genmodctl_new_cat() {
+  grep -e "^## mod/${category}$" control-modules >/dev/null && return 0
+  cat >> control-modules <<EOF
+## mod/$category
+
+EOF
+}
+
+
 print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
 > control
@@ -496,5 +515,6 @@ map_confs 'genconf'
 map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
+map_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod'
 touch .stamp-bootstrap
 
