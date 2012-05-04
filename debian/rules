@@ -37,7 +37,7 @@ override_dh_auto_clean:
 override_dh_auto_configure: .stamp-configure
 
 .stamp-build: .stamp-configure
-	make -j
+	make
 	touch $@
 
 override_dh_auto_build: .stamp-build
