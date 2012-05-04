@@ -24,7 +24,6 @@ avoid_mods=(
   endpoints/mod_reference
   endpoints/mod_unicall
   event_handlers/mod_snmp
-  formats/mod_vlc
   languages/mod_java
   languages/mod_managed
   languages/mod_yaml
