@@ -1,0 +1,3 @@
+# -*- mode: sh; mode: visual-line -*-
+debian_build_depends="libsasl2-dev"
+debian_depends="libsasl2-modules"
