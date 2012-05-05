@@ -50,6 +50,7 @@ FS's root directory):
 
     mkdir ../sounds
     export FS_SOUNDS_DIR=$(pwd)/../sounds
+    (cd debian && ./bootstrap.sh)
     schedtool -B -e git-buildpackage --git-verbose -us -uc
 
- -- Travis Cross <tc@traviscross.com>, Sat,  5 May 2012 06:49:07 +0000
+ -- Travis Cross <tc@traviscross.com>, Sat,  5 May 2012 06:51:37 +0000
