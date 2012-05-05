@@ -5,7 +5,7 @@
 mod_dir="../src/mod"
 conf_dir="../conf"
 fs_description="FreeSWITCH is a scalable open source cross-platform telephony platform designed to route and interconnect popular communication protocols using audio, video, text or any other form of media."
-build_depends="."
+mod_build_depends="."
 avoid_mods=(
   applications/mod_fax
   applications/mod_ladspa
@@ -146,7 +146,7 @@ Build-Depends:
 # used by many modules
  bison, zlib1g-dev,
 # module build-depends
- ${build_depends}
+ ${mod_build_depends}
 Standards-Version: 3.9.2
 Homepage: http://freeswitch.org/
 Vcs-Git: git://git.freeswitch.org/freeswitch
@@ -359,9 +359,9 @@ print_mod_control () {
   cat <<EOF
 Package: freeswitch-${module_name//_/-}
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch, ${debian_depends}
-Recommends: ${debian_recommends}
-Suggests: freeswitch-${module_name//_/-}-dbg, ${debian_suggests}
+Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch, ${depends}
+Recommends: ${recommends}
+Suggests: freeswitch-${module_name//_/-}-dbg, ${suggests}
 Description: ${description} for FreeSWITCH
  $(debian_wrap "${fs_description}")
  .
@@ -504,11 +504,11 @@ gensound () {
 }
 
 accumulate_build_depends () {
-  if [ -n "$debian_build_depends" ]; then
-    if [ ! "$build_depends" = "." ]; then
-      build_depends="${build_depends}, ${debian_build_depends}"
+  if [ -n "$build_depends" ]; then
+    if [ ! "$mod_build_depends" = "." ]; then
+      mod_build_depends="${mod_build_depends}, ${build_depends}"
     else
-      build_depends="${debian_build_depends}"
+      mod_build_depends="${build_depends}"
     fi
   fi
 }
