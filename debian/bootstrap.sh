@@ -267,7 +267,6 @@ Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
  freeswitch-mod-native-file (= \${binary:Version}),
  freeswitch-mod-local-stream (= \${binary:Version}),
  freeswitch-mod-tone-stream (= \${binary:Version}),
- freeswitch-mod-spidermonkey (= \${binary:Version}),
  freeswitch-mod-lua (= \${binary:Version}),
  freeswitch-mod-say-en (= \${binary:Version}),
 Recommends:
@@ -275,6 +274,8 @@ Recommends:
  freeswitch-music (= \${binary:Version}),
  freeswitch-sounds (= \${binary:Version}),
  freeswitch-conf-vanilla (= \${binary:Version}),
+Suggests:
+ freeswitch-mod-spidermonkey (= \${binary:Version}),
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  $(debian_wrap "${fs_description}")
  .
