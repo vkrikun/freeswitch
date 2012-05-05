@@ -6,7 +6,16 @@ export CFLAGS=-ggdb3 -O2
 export CXXFLAGS=-ggdb3 -O2
 FS_INSTALL_SOUNDS?=true
 
-.PHONY: binary-quicktest
+binary:
+	dh $@
+binary-arch:
+	dh $@
+binary-indep:
+	dh $@
+build: debian/.stamp-bootstrap
+	dh $@
+clean:
+	dh $@
 
 override_dh_auto_clean:
 	dh_clean
@@ -63,15 +72,14 @@ debian/.stamp-bootstrap:
 	(cd debian && ./bootstrap.sh)
 	touch $@
 
-%: debian/.stamp-bootstrap
-	dh $@
-
 binary-basetest:
 	echo "applications/mod_commands" > debian/modules.conf
+	(cd debian && ./bootstrap.sh)
 	dh binary
 
 binary-quicktest:
 	echo "applications/mod_commands" > debian/modules.conf
+	(cd debian && ./bootstrap.sh)
 	env FS_INSTALL_SOUNDS=false dh binary \
 		-Nfreeswitch-sounds-music-8k \
 		-Nfreeswitch-sounds-music-16k \
