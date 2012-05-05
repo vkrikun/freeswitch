@@ -17,6 +17,7 @@ show_vars= \
 	echo "PATH='$(PATH)'"; \
 	echo "CFLAGS='$(CFLAGS)'"; \
 	echo "CXXFLAGS='$(CXXFLAGS)'"; \
+	echo "CCACHE_DIR='$(CCACHE_DIR)'"; \
 	echo "FS_INSTALL_SOUNDS='$(FS_INSTALL_SOUNDS)'"; \
 	echo;
 
