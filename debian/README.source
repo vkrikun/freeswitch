@@ -45,12 +45,13 @@ The format of debian/modules.conf is:
   ## comments should start with two hash characters
   <category>/<module_name>
 
-The recommended way to build this package is with the commands (from
-FS's root directory):
+To build this package, I recommend running the following from the root
+directory of your FS git working tree:
 
     mkdir ../sounds
     export FS_SOUNDS_DIR=$(pwd)/../sounds
+    git clean -fdx && git reset --hard HEAD
     (cd debian && ./bootstrap.sh)
     schedtool -B -e git-buildpackage --git-verbose -us -uc
 
- -- Travis Cross <tc@traviscross.com>, Sat,  5 May 2012 06:51:37 +0000
+ -- Travis Cross <tc@traviscross.com>, Sat,  5 May 2012 08:04:19 +0000
