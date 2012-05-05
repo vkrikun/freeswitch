@@ -227,6 +227,57 @@ Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  This is a meta package containing a reasonable basic FreeSWITCH
  install.
 
+Package: freeswitch-meta-vanilla
+Architecture: any
+Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
+ freeswitch-mod-console (= \${binary:Version}),
+ freeswitch-mod-logfile (= \${binary:Version}),
+ freeswitch-mod-enum (= \${binary:Version}),
+ freeswitch-mod-cdr-csv (= \${binary:Version}),
+ freeswitch-mod-event-socket (= \${binary:Version}),
+ freeswitch-mod-sofia (= \${binary:Version}),
+ freeswitch-mod-loopback (= \${binary:Version}),
+ freeswitch-mod-commands (= \${binary:Version}),
+ freeswitch-mod-conference (= \${binary:Version}),
+ freeswitch-mod-db (= \${binary:Version}),
+ freeswitch-mod-dptools (= \${binary:Version}),
+ freeswitch-mod-expr (= \${binary:Version}),
+ freeswitch-mod-fifo (= \${binary:Version}),
+ freeswitch-mod-hash (= \${binary:Version}),
+ freeswitch-mod-voicemail (= \${binary:Version}),
+ freeswitch-mod-esf (= \${binary:Version}),
+ freeswitch-mod-fsv (= \${binary:Version}),
+ freeswitch-mod-cluechoo (= \${binary:Version}),
+ freeswitch-mod-valet-parking (= \${binary:Version}),
+ freeswitch-mod-httapi (= \${binary:Version}),
+ freeswitch-mod-dialplan-xml (= \${binary:Version}),
+ freeswitch-mod-dialplan-asterisk (= \${binary:Version}),
+ freeswitch-mod-spandsp (= \${binary:Version}),
+ freeswitch-mod-g723-1 (= \${binary:Version}),
+ freeswitch-mod-g729 (= \${binary:Version}),
+ freeswitch-mod-amr (= \${binary:Version}),
+ freeswitch-mod-ilbc (= \${binary:Version}),
+ freeswitch-mod-speex (= \${binary:Version}),
+ freeswitch-mod-h26x (= \${binary:Version}),
+ freeswitch-mod-siren (= \${binary:Version}),
+ freeswitch-mod-sndfile (= \${binary:Version}),
+ freeswitch-mod-native-file (= \${binary:Version}),
+ freeswitch-mod-local-stream (= \${binary:Version}),
+ freeswitch-mod-tone-stream (= \${binary:Version}),
+ freeswitch-mod-spidermonkey (= \${binary:Version}),
+ freeswitch-mod-lua (= \${binary:Version}),
+ freeswitch-mod-say-en (= \${binary:Version}),
+Recommends:
+ freeswitch-init (= \${binary:Version}),
+ freeswitch-music (= \${binary:Version}),
+ freeswitch-sounds (= \${binary:Version}),
+ freeswitch-conf-vanilla (= \${binary:Version}),
+Description: Cross-Platform Scalable Multi-Protocol Soft Switch
+ $(debian_wrap "${fs_description}")
+ .
+ This is a meta package containing the FreeSWITCH modules required to
+ run the vanilla example configuration.
+
 Package: freeswitch-meta-codecs
 Architecture: any
 Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
