@@ -505,24 +505,28 @@ parse_mod_control() {
   local fl=true ll_nl=false ll_descr=false
   while read l; do
     if [ -z "$l" ]; then
+      # is newline
       if ! $ll_nl && ! $fl; then
         echo >> control-modules.1
       fi
       ll_nl=true
       continue
     elif [ -z "${l##\#*}" ]; then
+      # is comment
       continue
     elif [ -z "${l## *}" ]; then
+      # is continuation line
       if ! $ll_descr; then
         echo -n "$l" >> control-modules.1
       else
-        echo -n "Description: $l" >> control-modules.1
+        echo -n "Long-Description: $l" >> control-modules.1
       fi
     else
+      # is header line
       $fl || echo >> control-modules.1
       if [ "${l%%:*}" = "Description" ]; then
         ll_descr=true
-        echo "Short-Description: ${l#*:}" >> control-modules.1
+        echo "Description: ${l#*:}" >> control-modules.1
         continue
       else
         echo -n "$l" >> control-modules.1
