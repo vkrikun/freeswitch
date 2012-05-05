@@ -37,6 +37,7 @@ err () {
 }
 
 avoid_mod_filter () {
+  IFS=' '
   for x in "${avoid_mods[@]}"; do
     [ "$1" = "$x" ] && return 1
   done
@@ -44,6 +45,7 @@ avoid_mod_filter () {
 }
 
 modconf_filter () {
+  IFS=''
   while read line; do
     [ "$1" = "$line" ] && return 0
   done < modules.conf
@@ -58,29 +60,54 @@ mod_filter () {
   fi
 }
 
-map_modules () {
+map_fs_modules () {
   local filterfn="$1" percatfns="$2" permodfns="$3"
+  IFS=' '
   for x in $mod_dir/*; do
     if test -d $x; then
       category=${x##*/} category_path=$x
       for f in $percatfns; do $f; done
       for y in $x/*; do
-        module=${y##*/} module_path=$y title="" description=""
-        debian_build_depends="" debian_depends=""
-        debian_recommends="" debian_suggests=""
+        module_name=${y##*/} module_path=$y
+        module=$category/$module_name
         if $filterfn $category/$module; then
           [ -f ${y}/module ] && . ${y}/module
-          [ -n "$title" ] || title="$module"
-          [ -n "$description" ] || description="Adds ${module}."
           for f in $permodfns; do $f; done
         fi
-        unset \
-          module module_path title description \
-          debian_build_depends debian_depends \
-          debian_recommends debian_suggests
+        unset module_name module_path module
       done
       unset category category_path
     fi
+  done
+}
+
+map_modules() {
+  local filterfn="$1" percatfns="$2" permodfns="$3"
+  IFS=' '
+  for x in tmp/mod/*; do
+    test -d $x || continue
+    category=${x##*/} category_path=$x
+    for f in $percatfns; do $f; done
+    for y in $x/*; do
+      test -f $y || continue
+      module=${y##*/} module_path=$y
+      $filterfn $category/$module || continue
+      module="" category="" module_name=""
+      description="" long_description=""
+      build_depends="" depends="" recommends="" suggests=""
+      distro_conflicts=""
+      . $y
+      [ -n "$description" ] || description="$module_name"
+      [ -n "$long_description" ] || description="Adds ${module_name}."
+      IFS=' '
+      for f in $permodfns; do $f; done
+      unset \
+        module module_name module_path \
+        description long_description \
+        build_depends depends recommends suggests \
+        distro_conflicts
+    done
+    unset category category_path
   done
 }
 
@@ -334,24 +361,24 @@ Architecture: any
 Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch, ${debian_depends}
 Recommends: ${debian_recommends}
 Suggests: freeswitch-${module//_/-}-dbg, ${debian_suggests}
-Description: ${title} for FreeSWITCH
+Description: ${description} for FreeSWITCH
  ${fs_description}
  .
  This package contains ${module} for FreeSWITCH.
  .
- ${description}
+ ${long_description}
 
 Package: freeswitch-${module//_/-}-dbg
 Section: debug
 Architecture: any
 Depends: \${misc:Depends},
  freeswitch-${module//_/-} (= \${binary:Version})
-Description: ${title} for FreeSWITCH (debug)
+Description: ${description} for FreeSWITCH (debug)
  ${fs_description}
  .
  This package contains debugging symbols for ${module} for FreeSWITCH.
  .
- ${description}
+ ${long_description}
 
 EOF
 }
@@ -426,7 +453,7 @@ print_edit_warning () {
 }
 
 gencontrol_per_mod () {
-  print_mod_control "$module" "$title" "$description" >> control  
+  print_mod_control "$module_name" "$description" "$long_description" >> control  
 }
 
 gencontrol_per_cat () {
@@ -434,8 +461,8 @@ gencontrol_per_cat () {
 }
 
 geninstall_per_mod () {
-  local f=freeswitch-${module//_/-}.install
-  (print_edit_warning; print_mod_install "$module") > $f
+  local f=freeswitch-${module_name//_/-}.install
+  (print_edit_warning; print_mod_install "$module_name") > $f
   test -f $f.tmpl && cat $f.tmpl >> $f
 }
 
@@ -444,7 +471,7 @@ genmodules_per_cat () {
 }
 
 genmodules_per_mod () {
-  echo "$category/$module" >> modules_.conf
+  echo "$module" >> modules_.conf
 }
 
 genconf () {
@@ -486,32 +513,31 @@ accumulate_build_depends () {
 }
 
 genmodctl_new_mod() {
-  grep -e "^Module: ${category}/${module}$" control-modules >/dev/null && return 0
-  cat >> control-modules <<EOF
-Module: $category/$module
-Description: $title
- $description
+  grep -e "^Module: ${module}$" control-modules >/dev/null && return 0
+  cat <<EOF
+Module: $module
+Description: $description
+ $long_description
 EOF
-  echo >> control-modules
+  echo
 }
 
 genmodctl_new_cat() {
   grep -e "^## mod/${category}$" control-modules >/dev/null && return 0
-  cat >> control-modules <<EOF
+  cat <<EOF
 ## mod/$category
 
 EOF
 }
 
-parse_mod_control() {
-  IFS=''
-  > control-modules.1
+pre_parse_mod_control() {
   local fl=true ll_nl=false ll_descr=false
+  IFS=''
   while read l; do
     if [ -z "$l" ]; then
       # is newline
       if ! $ll_nl && ! $fl; then
-        echo >> control-modules.1
+        echo
       fi
       ll_nl=true
       continue
@@ -521,19 +547,19 @@ parse_mod_control() {
     elif [ -z "${l## *}" ]; then
       # is continuation line
       if ! $ll_descr; then
-        echo -n "$l" >> control-modules.1
+        echo -n "$l"
       else
-        echo -n "Long-Description: $(echo "$l" | sed -e 's/^ *//')" >> control-modules.1
+        echo -n "Long-Description: $(echo "$l" | sed -e 's/^ *//')"
       fi
     else
       # is header line
-      $fl || echo >> control-modules.1
+      $fl || echo
       if [ "${l%%:*}" = "Description" ]; then
         ll_descr=true
-        echo "Description: ${l#*: }" >> control-modules.1
+        echo "Description: ${l#*: }"
         continue
       else
-        echo -n "$l" >> control-modules.1
+        echo -n "$l"
       fi
     fi
     fl=false ll_nl=false ll_descr=false
@@ -544,11 +570,12 @@ var_escape() {
   (echo -n \'; echo -n "$1" | sed -e "s/'/'\\\\''/g"; echo -n \')
 }
 
-parse_mod_control_2() {
-  IFS=''
+parse_mod_control() {
+  pre_parse_mod_control > control-modules.preparse
   local category=""
   local module_name=""
-  rm -r tmp/mod
+  rm -rf tmp/mod
+  IFS=''
   while read l; do
     if [ -z "$l" ]; then
       # is newline
@@ -570,11 +597,12 @@ parse_mod_control_2() {
       local var_name="$(echo "$header" | sed -e 's/-/_/g' | tr '[A-Z]' '[a-z]')"
       echo "${var_name}=$(var_escape "$value")" >> tmp/mod/$category/$module_name
     fi
-  done < control-modules.1
+  done < control-modules.preparse
 }
 
 debian_wrap() {
   local fl=true
+  IFS=''
   echo "$1" | fold -s -w 69 | while read l; do
     local v="$(echo "$l" | sed -e 's/ *$//g')"
     if $fl; then
@@ -593,6 +621,7 @@ genmodctl_cat() {
 genmodctl_mod() {
   echo "Module: $module"
   echo "Description: $description"
+  IFS=''
   echo "$long_description" | fold -s -w 69 | while read l; do
     local v="$(echo "$l" | sed -e 's/ *$//g')"
     echo " $v"
@@ -605,34 +634,11 @@ genmodctl_mod() {
   echo
 }
 
-map_modules2() {
-  local filterfn="$1" percatfns="$2" permodfns="$3"
-  for x in tmp/mod/*; do
-    test -d $x || continue
-    category=${x##*/} category_path=$x
-    for f in $percatfns; do $f; done
-    for y in $x/*; do
-      test -f $y || continue
-      module=${y##*/} module_path=$y
-      $filterfn $category/$module || continue
-      module="" category="" module_name=""
-      description="" long_description=""
-      build_depends="" depends="" recommends="" suggests=""
-      distro_conflicts=""
-      . $y
-      [ -n "$description" ] || description="$module_name"
-      [ -n "$long_description" ] || description="Adds ${module_name}."
-      for f in $permodfns; do $f; done
-      unset \
-        module module_name module_path \
-        description long_description \
-        build_depends depends recommends suggests \
-        distro_conflicts
-    done
-    unset category category_path
-  done
-}
-
+map_fs_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod' >> control-modules
+parse_mod_control
+(echo "# -*- mode:debian-control -*-"; echo; \
+  map_modules ':' 'genmodctl_cat' 'genmodctl_mod' \
+  ) > control-modules.gen
 
 print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
@@ -650,10 +656,5 @@ map_confs 'genconf'
 map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
-map_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod'
-parse_mod_control
-parse_mod_control_2
-(echo "# -*- mode:debian-control -*-"; echo) > control-modules.new
-map_modules2 ':' 'genmodctl_cat' 'genmodctl_mod' >> control-modules.new
-touch .stamp-bootstrap
 
+touch .stamp-bootstrap
