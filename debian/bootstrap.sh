@@ -84,7 +84,7 @@ map_fs_modules () {
 map_modules() {
   local filterfn="$1" percatfns="$2" permodfns="$3"
   IFS=' '
-  for x in tmp/mod/*; do
+  for x in $parse_dir/*; do
     test -d $x || continue
     category=${x##*/} category_path=$x
     for f in $percatfns; do $f; done
@@ -574,7 +574,7 @@ parse_mod_control() {
   pre_parse_mod_control > control-modules.preparse
   local category=""
   local module_name=""
-  rm -rf tmp/mod
+  rm -rf $parse_dir
   IFS=''
   while read l; do
     if [ -z "$l" ]; then
@@ -586,16 +586,16 @@ parse_mod_control() {
     if [ "$header" = "Module" ]; then
       category="${value%%/*}"
       module_name="${value#*/}"
-      mkdir -p tmp/mod/$category
+      mkdir -p $parse_dir/$category
       (echo "module=$(var_escape "$value")"; \
         echo "category=$(var_escape "$category")"; \
         echo "module_name=$(var_escape "$module_name")"; \
-        ) >> tmp/mod/$category/$module_name
+        ) >> $parse_dir/$category/$module_name
     else
       ([ -n "$category" ] && [ -n "$module_name" ]) \
         || err "unexpected header $header"
       local var_name="$(echo "$header" | sed -e 's/-/_/g' | tr '[A-Z]' '[a-z]')"
-      echo "${var_name}=$(var_escape "$value")" >> tmp/mod/$category/$module_name
+      echo "${var_name}=$(var_escape "$value")" >> $parse_dir/$category/$module_name
     fi
   done < control-modules.preparse
 }
@@ -634,6 +634,7 @@ genmodctl_mod() {
   echo
 }
 
+parse_dir=control-modules.parse
 map_fs_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod' >> control-modules
 parse_mod_control
 (echo "# -*- mode:debian-control -*-"; echo; \
