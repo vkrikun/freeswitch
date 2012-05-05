@@ -1,6 +1,6 @@
 freeswitch (1.2~alpha1-1) unstable; urgency=low
 
-  * Initial release of new packaging.
+  * Initial release of FreeSWITCH in new debian packaging.
   * The debian packaging has been completely rewritten from the ground up.
   * We now install to the correct locations outlined in the Filesystem
     Hierarchy Standard (FHS).
