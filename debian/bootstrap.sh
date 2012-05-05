@@ -146,7 +146,7 @@ Build-Depends:
 # used by many modules
  bison, zlib1g-dev,
 # module build-depends
- ${mod_build_depends}
+ $(debian_wrap "${mod_build_depends}")
 Standards-Version: 3.9.2
 Homepage: http://freeswitch.org/
 Vcs-Git: git://git.freeswitch.org/freeswitch
