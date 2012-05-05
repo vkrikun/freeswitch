@@ -359,9 +359,9 @@ print_mod_control () {
   cat <<EOF
 Package: freeswitch-${module_name//_/-}
 Architecture: any
-Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch, ${depends}
-Recommends: ${recommends}
-Suggests: freeswitch-${module_name//_/-}-dbg, ${suggests}
+$(debian_wrap "Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch, ${depends}")
+$(debian_wrap "Recommends: ${recommends}")
+$(debian_wrap "Suggests: freeswitch-${module_name//_/-}-dbg, ${suggests}")
 Description: ${description} for FreeSWITCH
  $(debian_wrap "${fs_description}")
  .
