@@ -498,6 +498,44 @@ genmodctl_new_cat() {
 EOF
 }
 
+parse_mod_control() {
+  local distro="$1"
+  IFS=''
+  > control-modules.1
+  local fl=true ll_nl=false ll_descr=false
+  while read l; do
+    echo "considering: '$l'"
+    if [ -z "$l" ]; then
+      if ! $ll_nl && ! $fl; then
+        echo 'got a newline'
+        echo >> control-modules.1
+      fi
+      ll_nl=true
+      continue
+    elif [ -z "${l##\#*}" ]; then
+      echo 'got a comment'
+      continue
+    elif [ -z "${l## *}" ]; then
+      echo 'got a continuation'
+      if ! $ll_descr; then
+        echo -n "$l" >> control-modules.1
+      else
+        echo -n "Description: $l" >> control-modules.1
+      fi
+    else
+      echo 'got a header'
+      $fl || echo >> control-modules.1
+      if [ "${l%%:*}" = "Description" ]; then
+        ll_descr=true
+        echo "Short-Description: ${l#*:}" >> control-modules.1
+        continue
+      else
+        echo -n "$l" >> control-modules.1
+      fi
+    fi
+    fl=false ll_nl=false ll_descr=false
+  done < control-modules
+}
 
 print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
@@ -516,5 +554,6 @@ map_modules "mod_filter" \
   "gencontrol_per_cat genmodules_per_cat" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
 map_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod'
+parse_mod_control
 touch .stamp-bootstrap
 
