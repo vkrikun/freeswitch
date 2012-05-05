@@ -179,8 +179,8 @@ Recommends:
  freeswitch-htdocs-slim (= \${binary:Version}),
  freeswitch-mod-commands (= \${binary:Version}),
  freeswitch-init (= \${binary:Version}),
- freeswitch-sounds-music (= \${binary:Version}),
- freeswitch-sounds-en-us (= \${binary:Version})
+ freeswitch-music (= \${binary:Version}),
+ freeswitch-sounds (= \${binary:Version})
 Suggests:
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
  $(debian_wrap "${fs_description}")
@@ -210,8 +210,8 @@ Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
 Recommends:
  freeswitch-init (= \${binary:Version}),
  freeswitch-meta-codecs (= \${binary:Version}),
- freeswitch-sounds-music (= \${binary:Version}),
- freeswitch-sounds-en-us (= \${binary:Version})
+ freeswitch-music (= \${binary:Version}),
+ freeswitch-sounds (= \${binary:Version})
 Suggests:
  freeswitch-mod-cidlookup (= \${binary:Version}),
  freeswitch-mod-curl (= \${binary:Version}),
@@ -312,18 +312,36 @@ Description: FreeSWITCH htdocs slim player
 
 ## sounds
 
-Package: freeswitch-sounds-music
+Package: freeswitch-music
 Architecture: all
-Depends: \${misc:Depends}
- freeswitch-sounds-music-8k (= \${binary:Version})
+Depends: \${misc:Depends},
+ freeswitch-music-default (= \${binary:Version})
+Description: Music on hold audio for FreeSWITCH
+ $(debian_wrap "${fs_description}")
+ .
+ This package contains music on hold audio for FreeSWITCH.
+
+Package: freeswitch-music-default
+Architecture: all
+Depends: \${misc:Depends},
+ freeswitch-music-default-8k (= \${binary:Version})
 Recommends:
-  freeswitch-sounds-music-16k (= \${binary:Version}),
-  freeswitch-sounds-music-32k (= \${binary:Version}),
-  freeswitch-sounds-music-48k (= \${binary:Version})
+  freeswitch-music-default-16k (= \${binary:Version}),
+  freeswitch-music-default-32k (= \${binary:Version}),
+  freeswitch-music-default-48k (= \${binary:Version})
 Description: Music on hold audio for FreeSWITCH
  $(debian_wrap "${fs_description}")
  .
  This package contains the default music on hold audio for FreeSWITCH.
+
+Package: freeswitch-sounds
+Architecture: all
+Depends: \${misc:Depends},
+ freeswitch-sounds-en (= \${binary:Version})
+Description: Sounds for FreeSWITCH
+ $(debian_wrap "${fs_description}")
+ .
+ This package contains sounds for FreeSWITCH.
 
 Package: freeswitch-sounds-en
 Architecture: all
@@ -415,7 +433,7 @@ EOF
 
 print_music_control () {
   cat <<EOF
-Package: freeswitch-sounds-music-${rate_k}
+Package: freeswitch-music-default-${rate_k}
 Architecture: all
 Depends: \${misc:Depends}
 Description: Music on hold audio for FreeSWITCH
@@ -489,7 +507,7 @@ genconf () {
 genmusic () {
   rate="$1" rate_k="${rate%%000}k"
   print_music_control >> control
-  local f=freeswitch-sounds-music-${rate_k}.install
+  local f=freeswitch-music-default-${rate_k}.install
   (print_edit_warning; print_music_install) > $f
   test -f $f.tmpl && cat $f.tmpl >> $f
   unset rate rate_k
