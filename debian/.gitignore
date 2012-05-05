@@ -1,6 +1,7 @@
 # gitignore
 /.stamp-bootstrap
 /control
+/control-modules.*
 /files
 /modules.conf
 /modules_.conf
