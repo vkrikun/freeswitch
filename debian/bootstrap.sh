@@ -504,26 +504,21 @@ parse_mod_control() {
   > control-modules.1
   local fl=true ll_nl=false ll_descr=false
   while read l; do
-    echo "considering: '$l'"
     if [ -z "$l" ]; then
       if ! $ll_nl && ! $fl; then
-        echo 'got a newline'
         echo >> control-modules.1
       fi
       ll_nl=true
       continue
     elif [ -z "${l##\#*}" ]; then
-      echo 'got a comment'
       continue
     elif [ -z "${l## *}" ]; then
-      echo 'got a continuation'
       if ! $ll_descr; then
         echo -n "$l" >> control-modules.1
       else
         echo -n "Description: $l" >> control-modules.1
       fi
     else
-      echo 'got a header'
       $fl || echo >> control-modules.1
       if [ "${l%%:*}" = "Description" ]; then
         ll_descr=true
