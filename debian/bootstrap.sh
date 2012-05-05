@@ -37,8 +37,16 @@ err () {
   exit 1
 }
 
+xread() {
+  local xIFS="$IFS"
+  IFS=''
+  read $@
+  local ret=$?
+  IFS="$xIFS"
+  return $ret
+}
+
 avoid_mod_filter () {
-  IFS=' '
   for x in "${avoid_mods[@]}"; do
     [ "$1" = "$x" ] && return 1
   done
@@ -46,8 +54,7 @@ avoid_mod_filter () {
 }
 
 modconf_filter () {
-  IFS=''
-  while read line; do
+  while xread line; do
     [ "$1" = "$line" ] && return 0
   done < modules.conf
   return 1
@@ -63,7 +70,6 @@ mod_filter () {
 
 map_fs_modules () {
   local filterfn="$1" percatfns="$2" permodfns="$3"
-  IFS=' '
   for x in $mod_dir/*; do
     if test -d $x; then
       category=${x##*/} category_path=$x
@@ -84,7 +90,6 @@ map_fs_modules () {
 
 map_modules() {
   local filterfn="$1" percatfns="$2" permodfns="$3"
-  IFS=' '
   for x in $parse_dir/*; do
     test -d $x || continue
     category=${x##*/} category_path=$x
@@ -100,7 +105,6 @@ map_modules() {
       . $y
       [ -n "$description" ] || description="$module_name"
       [ -n "$long_description" ] || description="Adds ${module_name}."
-      IFS=' '
       for f in $permodfns; do $f; done
       unset \
         module module_name module_path \
@@ -533,8 +537,7 @@ EOF
 
 pre_parse_mod_control() {
   local fl=true ll_nl=false ll_descr=false
-  IFS=''
-  while read l; do
+  while xread l; do
     if [ -z "$l" ]; then
       # is newline
       if ! $ll_nl && ! $fl; then
@@ -576,8 +579,7 @@ parse_mod_control() {
   local category=""
   local module_name=""
   rm -rf $parse_dir
-  IFS=''
-  while read l; do
+  while xread l; do
     if [ -z "$l" ]; then
       # is newline
       continue
@@ -603,8 +605,7 @@ parse_mod_control() {
 
 debian_wrap() {
   local fl=true
-  IFS=''
-  echo "$1" | fold -s -w 69 | while read l; do
+  echo "$1" | fold -s -w 69 | while xread l; do
     local v="$(echo "$l" | sed -e 's/ *$//g')"
     if $fl; then
       fl=false
@@ -622,8 +623,7 @@ genmodctl_cat() {
 genmodctl_mod() {
   echo "Module: $module"
   echo "Description: $description"
-  IFS=''
-  echo "$long_description" | fold -s -w 69 | while read l; do
+  echo "$long_description" | fold -s -w 69 | while xread l; do
     local v="$(echo "$l" | sed -e 's/ *$//g')"
     echo " $v"
   done
