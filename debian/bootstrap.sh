@@ -22,9 +22,11 @@ avoid_mods=(
   endpoints/mod_h323
   endpoints/mod_khomp
   endpoints/mod_opal
+  endpoints/mod_portaudio
   endpoints/mod_reference
   endpoints/mod_unicall
   event_handlers/mod_snmp
+  formats/mod_portaudio_stream
   formats/mod_vlc
   languages/mod_java
   languages/mod_managed
