@@ -518,14 +518,14 @@ parse_mod_control() {
       if ! $ll_descr; then
         echo -n "$l" >> control-modules.1
       else
-        echo -n "Long-Description: $l" >> control-modules.1
+        echo -n "Long-Description: $(echo "$l" | sed -e 's/^ *//')" >> control-modules.1
       fi
     else
       # is header line
       $fl || echo >> control-modules.1
       if [ "${l%%:*}" = "Description" ]; then
         ll_descr=true
-        echo "Description: ${l#*:}" >> control-modules.1
+        echo "Description: ${l#*: }" >> control-modules.1
         continue
       else
         echo -n "$l" >> control-modules.1
