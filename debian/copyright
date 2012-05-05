@@ -4,5 +4,5 @@ Source: http://freeswitch.org/
 
 Files: debian/*
 Copyright: 2012 Travis Cross <tc@traviscross.com>
-License: MPL
+License: MPL or GPL2+ (at your option)
 
