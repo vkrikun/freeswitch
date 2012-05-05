@@ -31,6 +31,11 @@ avoid_mods=(
   sdk/autotools
 )
 
+err () {
+  echo "$0 error: $1" >&2
+  exit 1
+}
+
 avoid_mod_filter () {
   for x in "${avoid_mods[@]}"; do
     [ "$1" = "$x" ] && return 1
@@ -535,6 +540,39 @@ parse_mod_control() {
   done < control-modules
 }
 
+var_escape() {
+  (echo -n \'; echo -n "$1" | sed -e "s/'/'\\\\''/g"; echo -n \')
+}
+
+parse_mod_control_2() {
+  IFS=''
+  local category=""
+  local module_name=""
+  rm -r tmp/mod
+  while read l; do
+    if [ -z "$l" ]; then
+      # is newline
+      continue
+    fi
+    local header="${l%%:*}"
+    local value="${l#*: }"
+    if [ "$header" = "Module" ]; then
+      category="${value%%/*}"
+      module_name="${value#*/}"
+      mkdir -p tmp/mod/$category
+      (echo "module=$(var_escape "$value")"; \
+        echo "category=$(var_escape "$category")"; \
+        echo "module_name=$(var_escape "$module_name")"; \
+        ) >> tmp/mod/$category/$module_name
+    else
+      ([ -n "$category" ] && [ -n "$module_name" ]) \
+        || err "unexpected header $header"
+      local var_name="$(echo "$header" | sed -e 's/-/_/g' | tr '[A-Z]' '[a-z]')"
+      echo "${var_name}=$(var_escape "$value")" >> tmp/mod/$category/$module_name
+    fi
+  done < control-modules.1
+}
+
 print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
 > control
@@ -553,5 +591,6 @@ map_modules "mod_filter" \
   "gencontrol_per_mod geninstall_per_mod genmodules_per_mod"
 map_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod'
 parse_mod_control
+parse_mod_control_2
 touch .stamp-bootstrap
 
