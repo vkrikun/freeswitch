@@ -162,7 +162,7 @@ Depends: \${shlibs:Depends}, \${perl:Depends}, \${misc:Depends}
 Recommends:
 Suggests: freeswitch-dbg
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the FreeSWITCH core.
 
@@ -178,7 +178,7 @@ Recommends:
  freeswitch-sounds-en-us (= \${binary:Version})
 Suggests:
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This is a meta package containing a very bare FreeSWITCH install.
 
@@ -215,7 +215,7 @@ Suggests:
  freeswitch-mod-spy (= \${binary:Version}),
  freeswitch-mod-valet-parking (= \${binary:Version})
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This is a meta package containing a reasonable basic FreeSWITCH
  install.
@@ -239,7 +239,7 @@ Depends: \${misc:Depends}, freeswitch (= \${binary:Version}),
  freeswitch-mod-speex (= \${binary:Version}),
  freeswitch-mod-theora (= \${binary:Version})
 Description: Cross-Platform Scalable Multi-Protocol Soft Switch
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This is a meta package containing most FreeSWITCH codecs.
 
@@ -248,7 +248,7 @@ Section: debug
 Architecture: any
 Depends: \${misc:Depends}, freeswitch (= \${binary:Version})
 Description: debugging symbols for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains debugging symbols for FreeSWITCH.
 
@@ -257,14 +257,14 @@ Section: libdevel
 Architecture: any
 Depends: \${misc:Depends}, freeswitch
 Description: development libraries and header files for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains include files for FreeSWITCH.
 
 Package: freeswitch-doc
 Architecture: all
 Description: documentation for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains Doxygen-produce documentation for FreeSWITCH.
 
@@ -274,7 +274,7 @@ Depends: \${misc:Depends},
  freeswitch-sysvinit (= \${binary:Version}),
  freeswitch-systemd (= \${binary:Version})
 Description: FreeSWITCH startup configuration
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the system startup configuration for
  FreeSWITCH.
@@ -283,7 +283,7 @@ Package: freeswitch-sysvinit
 Architecture: all
 Depends: \${misc:Depends}, lsb-base (>= 3.0-6)
 Description: FreeSWITCH SysV init script
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the SysV init script for FreeSWITCH.
 
@@ -291,7 +291,7 @@ Package: freeswitch-systemd
 Architecture: all
 Depends: \${misc:Depends}
 Description: FreeSWITCH systemd configuration
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the systemd configuration for FreeSWITCH.
 
@@ -301,7 +301,7 @@ Package: freeswitch-htdocs-slim
 Architecture: all
 Depends: \${misc:Depends}
 Description: FreeSWITCH htdocs slim player
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the slim SWF player for FreeSWITCH.
 
@@ -316,7 +316,7 @@ Recommends:
   freeswitch-sounds-music-32k (= \${binary:Version}),
   freeswitch-sounds-music-48k (= \${binary:Version})
 Description: Music on hold audio for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the default music on hold audio for FreeSWITCH.
 
@@ -325,7 +325,7 @@ Architecture: all
 Depends: \${misc:Depends},
  freeswitch-sounds-en-us (= \${binary:Version})
 Description: English sounds for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the English sounds for FreeSWITCH.
 
@@ -334,7 +334,7 @@ Architecture: all
 Depends: \${misc:Depends},
  freeswitch-sounds-en-us-callie (= \${binary:Version})
 Description: US English sounds for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the US/English sounds for FreeSWITCH.
 
@@ -347,7 +347,7 @@ Recommends:
  freeswitch-sounds-en-us-callie-32k (= \${binary:Version}),
  freeswitch-sounds-en-us-callie-48k (= \${binary:Version})
 Description: US English sounds for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the Callie English sounds for FreeSWITCH.
 
@@ -356,29 +356,29 @@ EOF
 
 print_mod_control () {
   cat <<EOF
-Package: freeswitch-${module//_/-}
+Package: freeswitch-${module_name//_/-}
 Architecture: any
 Depends: \${shlibs:Depends}, \${misc:Depends}, freeswitch, ${debian_depends}
 Recommends: ${debian_recommends}
-Suggests: freeswitch-${module//_/-}-dbg, ${debian_suggests}
+Suggests: freeswitch-${module_name//_/-}-dbg, ${debian_suggests}
 Description: ${description} for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
- This package contains ${module} for FreeSWITCH.
+ $(debian_wrap "This package contains ${module_name} for FreeSWITCH.")
  .
- ${long_description}
+ $(debian_wrap "${long_description}")
 
-Package: freeswitch-${module//_/-}-dbg
+Package: freeswitch-${module_name//_/-}-dbg
 Section: debug
 Architecture: any
 Depends: \${misc:Depends},
- freeswitch-${module//_/-} (= \${binary:Version})
+ freeswitch-${module_name//_/-} (= \${binary:Version})
 Description: ${description} for FreeSWITCH (debug)
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
- This package contains debugging symbols for ${module} for FreeSWITCH.
+ $(debian_wrap "This package contains debugging symbols for ${module_name} for FreeSWITCH.")
  .
- ${long_description}
+ $(debian_wrap "${long_description}")
 
 EOF
 }
@@ -395,9 +395,9 @@ Package: freeswitch-conf-${conf//_/-}
 Architecture: all
 Depends: \${misc:Depends}
 Description: FreeSWITCH ${conf} configuration
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
- This package contains the ${conf} configuration for FreeSWITCH.
+ $(debian_wrap "This package contains the ${conf} configuration for FreeSWITCH.")
 
 EOF
 }
@@ -414,7 +414,7 @@ Package: freeswitch-sounds-music-${rate_k}
 Architecture: all
 Depends: \${misc:Depends}
 Description: Music on hold audio for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the default music on hold audio for FreeSWITCH
  at a sampling rate of ${rate}Hz.
@@ -434,7 +434,7 @@ Package: freeswitch-sounds-${sound//\//-}-${rate_k}
 Architecture: all
 Depends: \${misc:Depends}
 Description: ${sound} sounds for FreeSWITCH
- ${fs_description}
+ $(debian_wrap "${fs_description}")
  .
  This package contains the ${sound} sounds for FreeSWITCH at a
  sampling rate of ${rate}Hz.
