@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="HTTP GET with caching"
-description="This module provides an API for making HTTP GET requests where the result is cached."

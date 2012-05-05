@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Blacklist helper"
-description="This module provides tools to blacklist callers."

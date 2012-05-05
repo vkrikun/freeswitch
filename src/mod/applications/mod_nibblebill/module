@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Nibblebill"
-description="This module allows for real-time accounting of a cash balance and using that information for call routing."

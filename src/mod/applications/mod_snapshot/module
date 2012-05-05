@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Snapshot"
-description="This module can record a sliding window of audio and take snapshots to disk."

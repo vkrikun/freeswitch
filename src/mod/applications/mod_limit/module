@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Limit compatibility module"
-description="This module provides a backward-compatible interface to the DB limit system."

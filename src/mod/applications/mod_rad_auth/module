@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="RADIUS AA"
-description="This module implements RADIUS Authentication and Authorization."

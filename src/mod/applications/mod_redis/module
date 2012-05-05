@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Redis limit backend"
-description="This module provides a mechanism to use Redis as a backend data store."

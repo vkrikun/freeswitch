@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Hash"
-description="This module provides a hash API, a key-value in-memory datastore."

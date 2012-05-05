@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="cURL"
-description="This module provides an API for making HTTP requests with cURL."

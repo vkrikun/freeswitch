@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-debian_build_depends="libasound2-dev"
-debian_depends="libasound2"

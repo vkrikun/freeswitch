@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Memcache"
-description="This module provides an interface to memcache servers."

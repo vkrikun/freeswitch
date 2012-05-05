@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="DB"
-description="This module implements simple db API, group support, and limit db backend."

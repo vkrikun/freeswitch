@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Call center"
-description="This module implements Automated Call Distribution (ACD) queues."

@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Easyroute"
-description="This module does destination lookup based on DID."

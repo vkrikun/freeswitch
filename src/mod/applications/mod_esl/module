@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Single ESL"
-description="This module adds an API for generating one-off ESL requests."

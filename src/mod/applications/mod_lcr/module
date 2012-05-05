@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="LCR"
-description="This module adds a facility for least-cost routing."

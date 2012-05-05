@@ -1,3 +1,0 @@
-# -*- mode: sh; mode: visual-line -*-
-title="Frequency-shift keying"
-description="This module adds frequency-shift keying support which can be used to send and receive caller ID."
