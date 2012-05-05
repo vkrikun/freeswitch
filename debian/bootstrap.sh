@@ -634,6 +634,8 @@ genmodctl_mod() {
   echo
 }
 
+echo "Please wait, this takes a few seconds..." >&2
+
 parse_dir=control-modules.parse
 map_fs_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod' >> control-modules
 parse_mod_control
