@@ -499,7 +499,6 @@ EOF
 }
 
 parse_mod_control() {
-  local distro="$1"
   IFS=''
   > control-modules.1
   local fl=true ll_nl=false ll_descr=false
