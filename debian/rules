@@ -9,7 +9,7 @@ FS_INSTALL_SOUNDS?=true
 
 show_vars= \
 	echo; \
-	echo "debian/rules variables:"; \
+	echo "Making target $@"; \
 	echo "PATH='$(PATH)'"; \
 	echo "CFLAGS='$(CFLAGS)'"; \
 	echo "CXXFLAGS='$(CXXFLAGS)'"; \
