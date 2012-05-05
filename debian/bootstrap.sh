@@ -29,6 +29,7 @@ avoid_mods=(
   languages/mod_managed
   languages/mod_yaml
   sdk/autotools
+  xml_int/mod_xml_ldap
 )
 
 err () {
