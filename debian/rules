@@ -2,10 +2,14 @@
 # -*- mode:makefile -*-
 #export DH_VERBOSE=1
 
-export PATH?=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-export CFLAGS?=-ggdb3 -O2
-export CXXFLAGS?=-ggdb3 -O2
+FS_CFLAGS?=-ggdb3 -O2
+FS_CPPFLAGS?=
+FS_CXXFLAGS?=$(FS_CFLAGS)
 FS_INSTALL_SOUNDS?=true
+export PATH?=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export CFLAGS=$(FS_CFLAGS)
+export CPPFLAGS=$(FS_CPPFLAGS)
+export CXXFLAGS=$(FS_CXXFLAGS)
 
 show_vars= \
 	echo; \
