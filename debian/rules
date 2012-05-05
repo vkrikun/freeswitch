@@ -68,12 +68,10 @@ debian/.stamp-bootstrap:
 
 binary-basetest:
 	echo "applications/mod_commands" > debian/modules.conf
-	(cd debian && ./bootstrap.sh)
 	dh binary
 
 binary-quicktest:
 	echo "applications/mod_commands" > debian/modules.conf
-	(cd debian && ./bootstrap.sh)
 	env FS_INSTALL_SOUNDS=false dh binary \
 		-Nfreeswitch-sounds-music-8k \
 		-Nfreeswitch-sounds-music-16k \
