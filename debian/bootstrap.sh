@@ -573,6 +573,41 @@ parse_mod_control_2() {
   done < control-modules.1
 }
 
+write_mod_control() {
+  cd tmp/mod
+  local f="../../control-modules.new"
+  > $f
+  echo "# -*- mode:debian-control -*-" >> $f
+  echo >> $f
+  for x in *; do
+    test -d $x || continue
+    (echo "## mod/$x"; echo) >> $f
+    for y in $x/*; do
+      test -f $y || continue
+      module="" category="" module_name=""
+      description="" long_description=""
+      build_depends="" depends="" recommends="" suggests=""
+      distro_conflicts=""
+      . $y
+      [ -n "$description" ] || description="$module_name"
+      [ -n "$long_description" ] || description="Adds ${module_name}."
+      echo "Module: $module" >> $f
+      echo "Description: $description" >> $f
+      xIFS="$IFS"; IFS=''
+      echo "$long_description" | fold -s -w 70 | while read l; do
+        echo " $l" >> $f
+      done
+      IFS="$xIFS"
+      [ -n "$build_depends" ] && echo "Build-Depends: $build_depends" >> $f
+      [ -n "$depends" ] && echo "Depends: $depends" >> $f
+      [ -n "$reccomends" ] && echo "Recommends: $recommends" >> $f
+      [ -n "$suggests" ] && echo "Suggests: $suggests" >> $f
+      [ -n "$distro_conflicts" ] && echo "Distro-Conflicts: $distro_conflicts" >> $f
+      echo >> $f
+    done
+  done
+}
+
 print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
 > control
@@ -592,5 +627,6 @@ map_modules "mod_filter" \
 map_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod'
 parse_mod_control
 parse_mod_control_2
+write_mod_control
 touch .stamp-bootstrap
 
