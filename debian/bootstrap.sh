@@ -573,6 +573,19 @@ parse_mod_control_2() {
   done < control-modules.1
 }
 
+debian_wrap() {
+  local fl=true
+  echo "$1" | fold -s -w 69 | while read l; do
+    local v="$(echo "$l" | sed -e 's/ *$//g')"
+    if $fl; then
+      fl=false
+      echo "$v"
+    else
+      echo " $v"
+    fi
+  done
+}
+
 write_mod_control() {
   cd tmp/mod
   local f="../../control-modules.new"
@@ -593,16 +606,15 @@ write_mod_control() {
       [ -n "$long_description" ] || description="Adds ${module_name}."
       echo "Module: $module" >> $f
       echo "Description: $description" >> $f
-      xIFS="$IFS"; IFS=''
-      echo "$long_description" | fold -s -w 70 | while read l; do
-        echo " $l" >> $f
+      echo "$long_description" | fold -s -w 69 | while read l; do
+        local v="$(echo "$l" | sed -e 's/ *$//g')"
+        echo " $v" >> $f
       done
-      IFS="$xIFS"
-      [ -n "$build_depends" ] && echo "Build-Depends: $build_depends" >> $f
-      [ -n "$depends" ] && echo "Depends: $depends" >> $f
-      [ -n "$reccomends" ] && echo "Recommends: $recommends" >> $f
-      [ -n "$suggests" ] && echo "Suggests: $suggests" >> $f
-      [ -n "$distro_conflicts" ] && echo "Distro-Conflicts: $distro_conflicts" >> $f
+      [ -n "$build_depends" ] && debian_wrap "Build-Depends: $build_depends" >> $f
+      [ -n "$depends" ] && debian_wrap "Depends: $depends" >> $f
+      [ -n "$reccomends" ] && debian_wrap "Recommends: $recommends" >> $f
+      [ -n "$suggests" ] && debian_wrap "Suggests: $suggests" >> $f
+      [ -n "$distro_conflicts" ] && debian_wrap "Distro-Conflicts: $distro_conflicts" >> $f
       echo >> $f
     done
   done
