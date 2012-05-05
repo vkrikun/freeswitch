@@ -586,17 +586,35 @@ debian_wrap() {
   done
 }
 
-write_mod_control() {
-  cd tmp/mod
-  local f="../../control-modules.new"
-  > $f
-  echo "# -*- mode:debian-control -*-" >> $f
-  echo >> $f
-  for x in *; do
+genmodctl_cat() {
+  (echo "## mod/$category"; echo)
+}
+
+genmodctl_mod() {
+  echo "Module: $module"
+  echo "Description: $description"
+  echo "$long_description" | fold -s -w 69 | while read l; do
+    local v="$(echo "$l" | sed -e 's/ *$//g')"
+    echo " $v"
+  done
+  [ -n "$build_depends" ] && debian_wrap "Build-Depends: $build_depends"
+  [ -n "$depends" ] && debian_wrap "Depends: $depends"
+  [ -n "$reccomends" ] && debian_wrap "Recommends: $recommends"
+  [ -n "$suggests" ] && debian_wrap "Suggests: $suggests"
+  [ -n "$distro_conflicts" ] && debian_wrap "Distro-Conflicts: $distro_conflicts"
+  echo
+}
+
+map_modules2() {
+  local filterfn="$1" percatfns="$2" permodfns="$3"
+  for x in tmp/mod/*; do
     test -d $x || continue
-    (echo "## mod/$x"; echo) >> $f
+    category=${x##*/} category_path=$x
+    for f in $percatfns; do $f; done
     for y in $x/*; do
       test -f $y || continue
+      module=${y##*/} module_path=$y
+      $filterfn $category/$module || continue
       module="" category="" module_name=""
       description="" long_description=""
       build_depends="" depends="" recommends="" suggests=""
@@ -604,21 +622,17 @@ write_mod_control() {
       . $y
       [ -n "$description" ] || description="$module_name"
       [ -n "$long_description" ] || description="Adds ${module_name}."
-      echo "Module: $module" >> $f
-      echo "Description: $description" >> $f
-      echo "$long_description" | fold -s -w 69 | while read l; do
-        local v="$(echo "$l" | sed -e 's/ *$//g')"
-        echo " $v" >> $f
-      done
-      [ -n "$build_depends" ] && debian_wrap "Build-Depends: $build_depends" >> $f
-      [ -n "$depends" ] && debian_wrap "Depends: $depends" >> $f
-      [ -n "$reccomends" ] && debian_wrap "Recommends: $recommends" >> $f
-      [ -n "$suggests" ] && debian_wrap "Suggests: $suggests" >> $f
-      [ -n "$distro_conflicts" ] && debian_wrap "Distro-Conflicts: $distro_conflicts" >> $f
-      echo >> $f
+      for f in $permodfns; do $f; done
+      unset \
+        module module_name module_path \
+        description long_description \
+        build_depends depends recommends suggests \
+        distro_conflicts
     done
+    unset category category_path
   done
 }
+
 
 print_edit_warning > modules_.conf
 map_modules 'mod_filter' '' 'accumulate_build_depends'
@@ -639,6 +653,7 @@ map_modules "mod_filter" \
 map_modules ':' 'genmodctl_new_cat' 'genmodctl_new_mod'
 parse_mod_control
 parse_mod_control_2
-write_mod_control
+(echo "# -*- mode:debian-control -*-"; echo) > control-modules.new
+map_modules2 ':' 'genmodctl_cat' 'genmodctl_mod' >> control-modules.new
 touch .stamp-bootstrap
 
