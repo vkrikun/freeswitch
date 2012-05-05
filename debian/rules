@@ -2,11 +2,22 @@
 # -*- makefile -*-
 #export DH_VERBOSE=1
 
-export CFLAGS=-ggdb3 -O2
-export CXXFLAGS=-ggdb3 -O2
+export PATH?=/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export CFLAGS?=-ggdb3 -O2
+export CXXFLAGS?=-ggdb3 -O2
 FS_INSTALL_SOUNDS?=true
 
+show_vars= \
+	echo; \
+	echo "debian/rules variables:"; \
+	echo "PATH='$(PATH)'"; \
+	echo "CFLAGS='$(CFLAGS)'"; \
+	echo "CXXFLAGS='$(CXXFLAGS)'"; \
+	echo "FS_INSTALL_SOUNDS='$(FS_INSTALL_SOUNDS)'"; \
+	echo;
+
 binary:
+	$(call show_vars)
 	dh $@
 binary-arch:
 	dh $@
@@ -73,11 +84,13 @@ debian/.stamp-bootstrap:
 	touch $@
 
 binary-basetest:
+	$(call show_vars)
 	echo "applications/mod_commands" > debian/modules.conf
 	(cd debian && ./bootstrap.sh)
 	dh binary
 
 binary-quicktest:
+	$(call show_vars)
 	echo "applications/mod_commands" > debian/modules.conf
 	(cd debian && ./bootstrap.sh)
 	env FS_INSTALL_SOUNDS=false dh binary \
