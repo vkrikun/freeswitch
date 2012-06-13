@@ -222,3 +222,7 @@ libs/sqlite/sqlite3.dSYM/Contents/Info.plist
 libs/sqlite/sqlite3.dSYM/Contents/Resources/DWARF/sqlite3
 libs/srtp/a.out.dSYM/Contents/Info.plist
 libs/srtp/a.out.dSYM/Contents/Resources/DWARF/a.out
+
+libs/libzrtp/.cproject
+
+libs/libzrtp/.project
