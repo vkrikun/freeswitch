@@ -1,13 +1,15 @@
 #
-# Copyright (c) 2006-2007 Philip R. Zimmermann. All rights reserved.
+# libZRTP SDK library, implements the ZRTP secure VoIP protocol.
+# Copyright (c) 2006-2009 Philip R. Zimmermann.  All rights reserved.
 # Contact: http://philzimmermann.com
+# For licensing and other legal details, see the file zrtp_legal.c.
 # 
-# Viktor Krikun <v.krikun@soft-industry.com> <v.krikun@gmail.com>
+# Viktor Krykun <v.krikun at zfoneproject.com> 
 #
 
-TEST_DIR=$(top_srcdir)/../../test
-TOP_SRCDIR=$(top_srcdir)/../../include
-THIRD_DIR=$(top_srcdir)/../../third_party
+TEST_DIR=$(top_srcdir)/test
+TOP_SRCDIR=$(top_srcdir)/include
+THIRD_DIR=$(top_srcdir)/third_party
 
 libzrtp_includedir=$(includedir)/libzrtp
 
@@ -49,7 +51,7 @@ if ZRTP_BUILD_ENTERPRISE
 libzrtp_include_HEADERS += $(TOP_SRCDIR)/zrtp_ec.h
 endif
 
-SUBDIRS =  ../../third_party/bnlib
+SUBDIRS =  third_party/bnlib
 SUBDIRS += build
 
 uninstall:
